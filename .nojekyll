@@ -1,0 +1,4 @@
+# Esta marcação impede que o GitHub Pages use o Jekyll para processar o
+# conteúdo.  Como nossa aplicação consiste em arquivos estáticos,
+# não queremos que o Jekyll tente interpretá‑los ou filtre recursos
+# começando com `_`.
