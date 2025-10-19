@@ -50,6 +50,24 @@ header.top-alert a {
   text-decoration: underline;
 }
 
+.update-banner {
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  padding: 0.65rem 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.update-banner .update-label {
+  font-weight: 700;
+  color: #ffd166;
+}
+
 main {
   padding: 2.5rem 1.5rem 3rem;
   max-width: 1200px;
@@ -88,6 +106,49 @@ section {
     grid-template-columns: 1fr;
   }
 }
+
+  .case-summary {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+  }
+
+  .case-summary-content {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .case-summary h2 {
+    margin: 0;
+    font-size: 1.7rem;
+    color: var(--primary);
+  }
+
+  .case-summary p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  .case-highlights {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.5rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .case-highlights a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .case-highlights a:hover {
+    text-decoration: underline;
+  }
 
 .photo-gallery {
   display: grid;
