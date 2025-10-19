@@ -588,11 +588,59 @@ section {
   gap: 1.75rem;
 }
 
+@media (min-width: 900px) {
+  .support-section {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
 .support-card {
   background: var(--surface);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: 2rem;
+}
+
+.flyer-card {
+  border: 1px solid rgba(30, 144, 255, 0.18);
+  background: linear-gradient(160deg, rgba(30, 144, 255, 0.08), rgba(255, 111, 0, 0.08));
+}
+
+.flyer-card h3 {
+  margin-top: 0;
+  color: var(--accent);
+}
+
+.download-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.85rem 1.35rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #1e90ff, #2563eb);
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 12px 24px rgba(30, 144, 255, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.download-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 28px rgba(30, 144, 255, 0.35);
+}
+
+.download-button:focus-visible {
+  outline: 3px solid rgba(30, 144, 255, 0.35);
+  outline-offset: 2px;
+}
+
+.download-hint {
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .support-card h2 {
