@@ -1,0 +1,334 @@
+'use strict';
+
+const photoProfiles = [
+  {
+    id: 'ai-week1',
+    src: 'assets/petraglia.jpg',
+    alt: 'Estimativa de Antônio Petraglia após uma semana nas ruas, barba e cabelo grisalhos, olhar direto para a câmera.',
+    title: 'Projeção após 1 semana nas ruas',
+    description: 'Imagem gerada com apoio de IA em 18/10/2025 baseada nos relatos mais recentes. Use como referência prioritária ao compartilhar.',
+    meta: 'Atualização: 18/10/2025 · Modelo supervisionado por voluntários',
+    badge: 'Estimativa (IA)',
+    badgeClass: 'badge-ai',
+    shortLabel: 'IA · 1 semana'
+  },
+  {
+    id: 'pre-disappearance',
+    src: 'assets/petraglia2.jpg',
+    alt: 'Foto real de Antônio Petraglia sorrindo, barba e cabelo grisalhos, vestindo camiseta cinza.',
+    title: 'Foto real antes do desaparecimento',
+    description: 'Registro oficial fornecido pela família em 12/10/2025. Retrata como Antônio costumava se apresentar em público.',
+    meta: 'Fonte: Família Petraglia · 12/10/2025',
+    badge: 'Foto oficial',
+    badgeClass: 'badge-official',
+    shortLabel: 'Oficial'
+  },
+  {
+    id: 'reference',
+    src: 'assets/petraglia3.jpg',
+    alt: 'Foto adicional de Antônio Petraglia usada como referência complementar.',
+    title: 'Foto de referência adicional',
+    description: 'Imagem de apoio para reconhecer traços faciais e sorriso característico.',
+    meta: 'Fonte: Arquivo da família',
+    badge: 'Referência',
+    badgeClass: 'badge-reference',
+    shortLabel: 'Referência'
+  }
+];
+
+const galleryElements = {
+  container: document.querySelector('.photo-gallery'),
+  mainImage: document.getElementById('currentPhoto'),
+  badge: document.getElementById('photoBadge'),
+  title: document.getElementById('photoTitle'),
+  description: document.getElementById('photoDescription'),
+  meta: document.getElementById('photoMeta'),
+  prev: document.getElementById('photoPrev'),
+  next: document.getElementById('photoNext'),
+  shuffle: document.getElementById('photoShuffle'),
+  thumbs: document.getElementById('photoThumbnails'),
+};
+
+let currentPhotoIndex = 0;
+let thumbButtons = [];
+
+const updateThumbState = (activeIndex) => {
+  thumbButtons.forEach((button, index) => {
+    const isActive = index === activeIndex;
+    button.setAttribute('aria-current', isActive ? 'true' : 'false');
+    button.classList.toggle('is-active', isActive);
+  });
+};
+
+const showPhoto = (index) => {
+  if (!galleryElements.mainImage) {
+    return;
+  }
+
+  currentPhotoIndex = (index + photoProfiles.length) % photoProfiles.length;
+  const photo = photoProfiles[currentPhotoIndex];
+
+  galleryElements.mainImage.src = photo.src;
+  galleryElements.mainImage.alt = photo.alt;
+
+  if (galleryElements.badge) {
+    if (photo.badge) {
+      galleryElements.badge.textContent = photo.badge;
+      galleryElements.badge.className = `photo-badge ${photo.badgeClass || ''}`;
+      galleryElements.badge.hidden = false;
+    } else {
+      galleryElements.badge.hidden = true;
+    }
+  }
+
+  galleryElements.title.textContent = photo.title;
+  galleryElements.description.textContent = photo.description;
+
+  if (galleryElements.meta) {
+    if (photo.meta) {
+      galleryElements.meta.textContent = photo.meta;
+      galleryElements.meta.hidden = false;
+    } else {
+      galleryElements.meta.textContent = '';
+      galleryElements.meta.hidden = true;
+    }
+  }
+
+  updateThumbState(currentPhotoIndex);
+};
+
+const movePhoto = (step) => {
+  showPhoto(currentPhotoIndex + step);
+};
+
+const shufflePhoto = () => {
+  if (photoProfiles.length <= 1) {
+    return;
+  }
+  let nextIndex = Math.floor(Math.random() * photoProfiles.length);
+  if (nextIndex === currentPhotoIndex) {
+    nextIndex = (nextIndex + 1) % photoProfiles.length;
+  }
+  showPhoto(nextIndex);
+};
+
+const buildThumbnails = () => {
+  if (!galleryElements.thumbs) {
+    return;
+  }
+
+  galleryElements.thumbs.innerHTML = '';
+  thumbButtons = photoProfiles.map((photo, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'photo-thumb';
+    button.dataset.index = String(index);
+    button.setAttribute('role', 'listitem');
+    button.setAttribute('aria-label', `${photo.title}${photo.badge ? ` (${photo.badge})` : ''}`);
+
+    const img = document.createElement('img');
+    img.src = photo.src;
+    img.alt = photo.alt;
+    button.appendChild(img);
+
+    const caption = document.createElement('span');
+    caption.textContent = photo.shortLabel || photo.title;
+    button.appendChild(caption);
+
+    button.addEventListener('click', () => showPhoto(index));
+    galleryElements.thumbs.appendChild(button);
+
+    return button;
+  });
+};
+
+if (galleryElements.mainImage) {
+  buildThumbnails();
+  showPhoto(0);
+
+  galleryElements.prev?.addEventListener('click', () => movePhoto(-1));
+  galleryElements.next?.addEventListener('click', () => movePhoto(1));
+  galleryElements.shuffle?.addEventListener('click', shufflePhoto);
+
+  galleryElements.container?.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      movePhoto(-1);
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      movePhoto(1);
+    } else if (event.key === ' ') {
+      event.preventDefault();
+      shufflePhoto();
+    }
+  });
+}
+
+const events = [
+  {
+    date: '2025-10-14',
+    time: '14:00',
+    title: 'Praia da Urca',
+    description: 'Visto por um pescador na Praia da Urca.',
+    coords: [-22.94794, -43.16326],
+  },
+  {
+    date: '2025-10-15',
+    time: '20:00',
+    title: 'Boemia da Lapa Cavern Pub',
+    description: 'Visto às 20h no Bar Boemia da Lapa Cavern Club (Avenida Mem de Sá, 104).',
+    coords: [-22.9128251, -43.1827557],
+  },
+  {
+    date: '2025-10-15',
+    time: '23:30',
+    title: 'Arcos da Lapa',
+    description: 'Após ser encontrado deitado na Rua Gomes Freire, caminhou em direção aos Arcos da Lapa.',
+    coords: [-22.9125944, -43.17985],
+  },
+  {
+    date: '2025-10-17',
+    time: '10:00',
+    title: 'Escadaria Selarón',
+    description: 'Visto por voluntária do SOS Crianças Desaparecidas próximo à base da Escadaria Selarón.',
+    coords: [-22.9143222, -43.1789528],
+  },
+  {
+    date: '2025-10-17',
+    time: '14:00',
+    title: 'Cinelândia',
+    description: 'Visto na Cinelândia no ponto de distribuição de alimentos.',
+    coords: [-22.9066, -43.1721],
+  },
+];
+
+const map = L.map('map', { scrollWheelZoom: true }).setView([-22.9128, -43.1805], 14);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+}).addTo(map);
+
+const routePoints = [];
+const timelineEl = document.getElementById('timeline');
+
+const createSightingIcon = (label) => L.divIcon({
+  html: `<div class="sighting-marker" title="Ponto de avistamento ${label}">${label}</div>`,
+  iconSize: [26, 26],
+  iconAnchor: [13, 26],
+  popupAnchor: [0, -24],
+  className: 'sighting-icon leaflet-div-icon',
+});
+
+events.forEach((event, index) => {
+  const order = index + 1;
+  routePoints.push(event.coords);
+  const marker = L.marker(event.coords, { icon: createSightingIcon(order) }).addTo(map);
+
+  const [year, month, day] = event.date.split('-');
+  const displayDate = `${day}/${month}/${year}`;
+
+  marker.bindPopup(`<strong>${order}. ${event.title}</strong><br>${displayDate} às ${event.time}<br>${event.description}`);
+
+  const li = document.createElement('li');
+  li.className = 'timeline-item';
+  li.dataset.index = order;
+  li.innerHTML = `
+    <div class="timeline-date">${displayDate} &bull; ${event.time}</div>
+    <div class="timeline-title">${event.title}</div>
+    <div class="timeline-desc">${event.description}</div>
+  `;
+  li.addEventListener('click', () => {
+    map.setView(event.coords, 17);
+    marker.openPopup();
+  });
+  timelineEl.appendChild(li);
+});
+
+const polyline = L.polyline(routePoints, {
+  color: '#ff6f00',
+  weight: 4,
+  opacity: 0.85,
+  dashArray: '12 8',
+  lineCap: 'round',
+  lineJoin: 'round',
+}).addTo(map);
+
+map.fitBounds(polyline.getBounds(), { padding: [20, 20] });
+
+const shareButtons = document.querySelectorAll('[data-share]');
+const shareFeedback = document.getElementById('shareFeedback');
+const nativeShareButton = document.getElementById('nativeShare');
+const shareMessagePlain = 'Ajude a encontrar Antônio Petraglia, 70 anos. Último contato no centro do Rio de Janeiro. Ligue (21) 2253-1177 - Disque Denúncia.';
+const shareText = encodeURIComponent(shareMessagePlain);
+const shareUrl = encodeURIComponent(window.location.href);
+
+const shareLinks = {
+  instagram: 'https://www.instagram.com/vamos_achar_antonio',
+  facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`,
+  x: `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`,
+  tiktok: 'https://www.tiktok.com/share?lang=pt-BR',
+  whatsapp: `https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}`,
+  telegram: `https://t.me/share/url?url=${shareUrl}&text=${shareText}`,
+};
+
+let feedbackTimeout;
+const copyFallback = (message) => {
+  if (!navigator.clipboard) {
+    showFeedback('Copie a mensagem manualmente: ' + message, true);
+    return;
+  }
+  navigator.clipboard
+    .writeText(`${message} ${window.location.href}`)
+    .then(() => showFeedback('Mensagem copiada! Abra o aplicativo e cole para compartilhar.'))
+    .catch(() => showFeedback('Não foi possível copiar automaticamente. Copie manualmente.', true));
+};
+
+const showFeedback = (message, isError = false) => {
+  clearTimeout(feedbackTimeout);
+  shareFeedback.textContent = message;
+  shareFeedback.dataset.status = isError ? 'error' : 'success';
+  shareFeedback.classList.add('visible');
+  feedbackTimeout = setTimeout(() => {
+    shareFeedback.classList.remove('visible');
+  }, 5000);
+};
+
+shareButtons.forEach((button) => {
+  const platform = button.dataset.share;
+  const shouldCopy = button.dataset.copy === 'true';
+  const link = shareLinks[platform];
+
+  if (!shouldCopy && link) {
+    button.href = link;
+    button.target = '_blank';
+  }
+
+  button.addEventListener('click', (event) => {
+    if (shouldCopy) {
+      event.preventDefault();
+      copyFallback(shareMessagePlain);
+      if (link) {
+        window.open(link, '_blank', 'noopener');
+      }
+    }
+  });
+});
+
+if (navigator.share) {
+  nativeShareButton.addEventListener('click', async () => {
+    try {
+      await navigator.share({
+        title: 'Ajude a encontrar Antônio Petraglia',
+        text: shareMessagePlain,
+        url: window.location.href,
+      });
+      showFeedback('Obrigado por compartilhar!');
+    } catch (error) {
+      if (error && error.name !== 'AbortError') {
+        showFeedback('Compartilhamento cancelado ou indisponível.', true);
+      }
+    }
+  });
+} else {
+  nativeShareButton.style.display = 'none';
+}
