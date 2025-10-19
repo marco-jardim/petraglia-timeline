@@ -171,6 +171,13 @@ const events = [
     coords: [-22.9125944, -43.17985],
   },
   {
+    date: '2025-10-16',
+    time: '16:00',
+    title: 'Travessa do Mosqueira',
+    description: 'Missionárias da Caridade informaram que Antônio chegou às 16h para a refeição solidária no dia 16/10, aceitando água e lanche.',
+    coords: [-22.9141483, -43.1793843],
+  },
+  {
     date: '2025-10-17',
     time: '10:00',
     title: 'Escadaria Selarón',
@@ -183,13 +190,6 @@ const events = [
     title: 'Cinelândia',
     description: 'Visto na Cinelândia no ponto de distribuição de alimentos.',
     coords: [-22.9066, -43.1721],
-  },
-  {
-    date: '2025-10-16',
-    time: '16:00',
-    title: 'Travessa do Mosqueira',
-    description: 'Missionárias da Caridade informaram que Antônio chegou às 16h para a refeição solidária no dia 16/10, aceitando água e lanche.',
-    coords: [-22.9141483, -43.1793843],
   },
   {
     date: '2025-10-17',
