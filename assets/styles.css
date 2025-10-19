@@ -126,9 +126,9 @@ section {
   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
 }
 
-.photo-badge.badge-ai {
-  background: rgba(255, 111, 0, 0.9);
-  color: #ffffff;
+.photo-badge.badge-recent {
+  background: rgba(76, 201, 240, 0.92);
+  color: #0f172a;
 }
 
 .photo-badge.badge-official {
