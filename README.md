@@ -1,112 +1,67 @@
-# Aplicação de Linha do Tempo e Mapa Interativo (Outubro 2025)
+# Petraglia Timeline
 
-Esta aplicação Web exibe uma linha do tempo e um mapa interativo com
-os locais em que Antonio Pegraglia foi visto na cidade do Rio de Janeiro
-dentro do mês de **outubro de 2025**.  Os dados incluídos são baseados
-nas ocorrências descritas abaixo:
+Site informativo que reúne os esforços para localizar Antônio Petraglia, professor aposentado desaparecido desde 12/10/2025. A página combina galeria de fotos reais, linha do tempo, mapa interativo, resumo do caso, cobertura na imprensa, cartões de apoio e compartilhamento rápido para redes sociais.
 
-- **Terça‑feira, 14/10/2025** — visto por um pescador na **Praia da Urca**.
-- **Quarta‑feira, 15/10/2025 às 20h** — visto no **Boemia da Lapa
-  Cavern Pub** (Avenida Mem de Sá 104).  Mais tarde, após ser encontrado
-  deitado na Rua Gomes Freire, caminhou em direção aos **Arcos da
-  Lapa**.
-- **Sexta‑feira, 17/10/2025** — visto por uma voluntária do **SOS Crianças
-  Desaparecidas** próximo à base da **Escadaria Selarón**.
-- **Sexta‑feira, 17/10/2025** — visto na **Cinelândia** (Praça Floriano) no
-  ponto de distribuição de alimentos.
+## Principais recursos
 
-O mapa interativo utiliza **Leaflet** e **OpenStreetMap**, não sendo
-necessário chave de API.  O código JavaScript define marcadores para
-cada localidade e conecta os pontos com uma linha para mostrar o
-itinerário ao longo dos dias.
+- **Galeria acessível** com miniaturas clicáveis, botões de navegação e metadados de cada foto real do acervo da família.
+- **Mapa Leaflet + linha do tempo** destacando os avistamentos confirmados entre Urca, Lapa, Glória e Cinelândia com marcadores numerados e rota conectando os pontos.
+- **Resumo do caso** sempre atualizado, cruzando a linha do tempo com as reportagens mais recentes para contextualizar voluntários e imprensa.
+- **Seção “Repercussão na imprensa”** com cards para O Globo, Veja Rio, O Dia e Record TV, cada um apontando para a matéria original.
+- **Compartilhamento facilitado** (Instagram, Facebook, X, TikTok, WhatsApp, Telegram e Web Share API) com feedback visual e fallback de cópia automática.
+- **Cartaz A4 pronto para impressão** para ampliar o alcance offline, além de orientações rápidas na seção de apoio.
 
 ## Estrutura do projeto
 
 ```
 petraglia-timeline/
-│
-├── index.html       # Página Web com mapa e linha do tempo (raiz do site)
-├── .nojekyll        # Impede que o GitHub Pages use Jekyll
-├── .env.example     # Arquivo de exemplo para variáveis de ambiente
-└── README.md        # Este arquivo
+├── index.html              # Página principal com hero, mapa, timeline, imprensa e apoio
+├── assets/
+│   ├── styles.css          # Estilos globais (layout, componentes, responsividade)
+│   ├── app.js              # Galeria, timeline, mapa, botões de compartilhamento
+│   ├── petraglia.jpg       # Fotos reais fornecidas pela família
+│   ├── petraglia2.jpg
+│   ├── petraglia3.jpg
+│   └── A4_cartaz.pdf       # Cartaz em formato A4 para impressão
+├── .github/workflows/
+│   ├── deploy-pages.yml    # Pipeline de publicação no GitHub Pages
+│   └── static.yml          # Verificações estáticas/auxiliares
+├── .nojekyll               # Garante que o GitHub Pages sirva arquivos estáticos
+├── .env.example            # Placeholder para futuras integrações que exijam chaves
+├── LICENSE                 # Licença MIT
+└── README.md               # Este arquivo
 ```
 
-### `index.html`
+## Executando localmente
 
-Arquivo estático contendo o HTML, CSS e JavaScript necessários para
-renderizar a linha do tempo e o mapa.  As coordenadas dos eventos
-estão incorporadas no script.  Se desejar adicionar novos pontos
-ou ajustar horários/descrições, edite a constante `events` dentro
-deste arquivo.
+- Pré-requisitos: qualquer navegador moderno; não há dependências adicionais.
+- Abra `index.html` diretamente no navegador (duplo clique ou `code + browser`). Todas as seções usam bibliotecas via CDN.
 
-### `.env.example`
+## Deploy no GitHub Pages
 
-Este arquivo demonstra como declarar variáveis de ambiente caso
-deseje adicionar funcionalidades que dependam de chaves (por
-exemplo, integrar com a API do Google Maps).  Para a versão atual
-nenhuma variável é obrigatória.
+- O repositório inclui fluxo de trabalho `deploy-pages.yml` configurado para publicar a branch principal em GitHub Pages.
+- Alternativamente, é possível ativar Pages manualmente em *Settings → Pages*, apontando para a branch `main` e pasta raiz.
+- O arquivo `.nojekyll` garante que recursos como `assets/app.js` sejam servidos sem interferência do mecanismo padrão do GitHub Pages.
 
-## Como executar localmente
+## Atualizando conteúdos
 
-1. **Pré‑requisitos:** basta ter um navegador moderno.  Nenhuma
-   dependência adicional precisa ser instalada.
-2. Abra o arquivo `index.html` localizado na raiz do projeto
-   (`petraglia-timeline/index.html`) no navegador.  O mapa e a linha do tempo
-   serão carregados.
+- **Fotos e metadados da galeria:** editar o array `photoProfiles` em `assets/app.js` e incluir os novos arquivos no diretório `assets/`.
+- **Avistamentos e rota:** ajustar a constante `events` em `assets/app.js`. Cada item define `date`, `time`, `title`, `description` e `coords`.
+- **Resumo do caso / texto editorial:** atualizar a seção `case-summary` em `index.html`, incluindo links relevantes.
+- **Cobertura na imprensa:** editar a grade `press-grid` em `index.html`. Cada `article` possui título, metadados e link externo.
+- **Cartaz:** substituir `assets/A4_cartaz.pdf` se surgir uma nova versão. O link é referenciado na seção `support-section`.
 
-## Hospedagem no GitHub Pages
+## Automação da data de atualização
 
-A aplicação pode ser servida diretamente como um site estático no
-GitHub Pages.  Como o `index.html` está na raiz do repositório e
-depende apenas de bibliotecas carregadas via CDN, nenhuma etapa de
-construção (build) é necessária.  Para publicar:
+- Existe um hook opcional de `pre-commit` (em `.git/hooks/pre-commit`, não versionado) que substitui automaticamente a data do banner "Atualizado em" a cada commit. Copie o script fornecido no repositório local, garanta permissão de execução e personalize conforme necessário.
+- Para automatizar em servidores remotos, adapte o fluxo `deploy-pages.yml` com uma etapa que ajuste o campo `<time datetime="...">` antes de publicar.
 
-1. Crie um repositório no GitHub e faça commit dos arquivos da pasta
-   `petraglia-timeline` (incluindo `index.html`, `.nojekyll` e `README.md`).  O
-   arquivo `.nojekyll` impede que o GitHub execute o mecanismo
-   Jekyll, garantindo que o conteúdo estático seja servido como está.
-2. Acesse as configurações do repositório (Settings ➝ Pages) e
-   configure o GitHub Pages para servir conteúdo da branch `main`
-   (ou qualquer outra) a partir da pasta raiz (`/`).  Salve as
-   alterações.
-3. Após alguns minutos, o GitHub fornecerá uma URL pública para o
-   site, onde o mapa e a linha do tempo ficarão disponíveis.  Se
-   preferir automatizar a publicação para uma branch dedicada (`gh-pages`)
-   ou compor um processo de build mais complexo, você pode adicionar
-   um **GitHub Actions** (`.github/workflows/`) que execute a cópia dos
-   arquivos para `gh-pages`.  Como não há etapa de build para este
-   projeto, habilitar o GitHub Pages manualmente é o suficiente.
+## Contato e compartilhamento rápido
 
-## Adicionando ou editando eventos
-
-Os eventos são definidos como um array de objetos no final do
-`index.html`.  Cada objeto possui as propriedades:
-
-- `date`: data no formato `AAAA‑MM‑DD`.
-- `time`: horário no formato `HH:MM`.
-- `title`: título resumido do evento.
-- `description`: descrição detalhada que aparecerá no pop‑up e na linha
-  do tempo.
-- `coords`: array `[latitude, longitude]` em graus decimais.
-
-Para adicionar um novo ponto, basta incluir um novo objeto neste
-array em ordem cronológica.  O script automaticamente cria um
-marcador, adiciona o item na linha do tempo e atualiza a rota.
-
-## Observações
-
-- Embora a tarefa sugerisse o uso da API do Google Maps, optou‑se
-  pela biblioteca **Leaflet** com dados do **OpenStreetMap** para
-  evitar a necessidade de chave de API.  Caso prefira utilizar
-  Google Maps, o código pode ser adaptado inserindo o script da
-  API correspondente e implementando os marcadores usando a
-  `google.maps.Map`.
-- As coordenadas aqui utilizadas foram obtidas de fontes públicas
-  confiáveis: Mapcarta para a Praia da Urca, geocode.maps.co para o
-  endereço da Avenida Mem de Sá 104, Wikipedia para o Aqueduto da
-  Carioca e a Escadaria Selarón, e Latitude.to para a Praça Floriano (Cinelândia).  Os valores
-  de latitude e longitude são aproximados.
+- Canal oficial: Disque Denúncia `(21) 2253-1177`.
+- Perfil centralizador de informações: [`@vamos_achar_antonio`](https://www.instagram.com/vamos_achar_antonio).
+- Use a seção de compartilhamento para difundir rapidamente o caso por redes sociais e mensageiros.
 
 ## Licença
 
-(MIT License)[LICENSE].  Sinta‑se à vontade para copiar, modificar e distribuir.
+[MIT License](LICENSE). Sinta-se à vontade para copiar, modificar e distribuir.
