@@ -4,24 +4,24 @@ const photoProfiles = [
   {
     id: 'recent-20251017',
     src: 'assets/petraglia.jpg',
-    alt: 'Foto recente de Antônio Petraglia em 17 de outubro de 2025, vestindo blusa cinza esverdeada.',
-    title: 'Registro mais recente (17/10/2025)',
-    description: 'Imagem capturada por voluntários na região da Glória no fim da tarde de 17/10/2025.',
-    meta: 'Confirmada pelas Missionárias da Caridade · 17/10/2025',
+    alt: 'Foto recente de Antônio Petraglia, vestindo blusa cinza esverdeada.',
+    title: 'Foto oficial antes do desaparecimento',
+    description: 'Imagem mais recente do Petraglia.',
+    meta: 'Fonte: Arquivo da família',
     badge: 'Foto recente',
     badgeClass: 'badge-recent',
-    shortLabel: '17/10 · Recente'
+    shortLabel: 'Recente'
   },
   {
     id: 'pre-disappearance',
     src: 'assets/petraglia2.jpg',
     alt: 'Foto oficial de Antônio Petraglia sorrindo, barba e cabelo grisalhos, vestindo camiseta cinza.',
-    title: 'Foto oficial antes do desaparecimento',
-    description: 'Registro fornecido pela família em 12/10/2025 e usado nas buscas desde o primeiro dia.',
-    meta: 'Fonte: Família Petraglia · 12/10/2025',
+    title: 'Foto de antes do desaparecimento',
+    description: 'Registro fornecido pela família e usado nas buscas desde o primeiro dia.',
+    meta: 'Fonte: Família Petraglia',
     badge: 'Foto oficial',
     badgeClass: 'badge-official',
-    shortLabel: '12/10 · Oficial'
+    shortLabel: 'Recente'
   },
   {
     id: 'reference',
