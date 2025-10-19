@@ -45,7 +45,6 @@ const galleryElements = {
   meta: document.getElementById('photoMeta'),
   prev: document.getElementById('photoPrev'),
   next: document.getElementById('photoNext'),
-  shuffle: document.getElementById('photoShuffle'),
   thumbs: document.getElementById('photoThumbnails'),
 };
 
@@ -101,17 +100,6 @@ const movePhoto = (step) => {
   showPhoto(currentPhotoIndex + step);
 };
 
-const shufflePhoto = () => {
-  if (photoProfiles.length <= 1) {
-    return;
-  }
-  let nextIndex = Math.floor(Math.random() * photoProfiles.length);
-  if (nextIndex === currentPhotoIndex) {
-    nextIndex = (nextIndex + 1) % photoProfiles.length;
-  }
-  showPhoto(nextIndex);
-};
-
 const buildThumbnails = () => {
   if (!galleryElements.thumbs) {
     return;
@@ -148,7 +136,6 @@ if (galleryElements.mainImage) {
 
   galleryElements.prev?.addEventListener('click', () => movePhoto(-1));
   galleryElements.next?.addEventListener('click', () => movePhoto(1));
-  galleryElements.shuffle?.addEventListener('click', shufflePhoto);
 
   galleryElements.container?.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowLeft') {
@@ -157,9 +144,6 @@ if (galleryElements.mainImage) {
     } else if (event.key === 'ArrowRight') {
       event.preventDefault();
       movePhoto(1);
-    } else if (event.key === ' ') {
-      event.preventDefault();
-      shufflePhoto();
     }
   });
 }
