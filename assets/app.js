@@ -33,6 +33,28 @@ const photoProfiles = [
     badge: 'Referência',
     badgeClass: 'badge-reference',
     shortLabel: 'Referência'
+  },
+  {
+    id: 'ia-simulation-1',
+    src: 'assets/petraglia-ia-1.jpeg',
+    alt: 'Foto gerada por inteligência artificial',
+    title: 'Foto gerada por inteligência artificial',
+    description: 'Simulação de como Antônio Petraglia ficaria com barba.',
+    meta: 'Fonte: Inteligencia Artificial',
+    badge: 'Simulação com IA',
+    badgeClass: 'badge-reference',
+    shortLabel: 'Simulação'
+  },
+  {
+    id: 'ia-simulation-2',
+    src: 'assets/petraglia-ia-2.jpeg',
+    alt: 'Foto gerada por inteligência artificial',
+    title: 'Foto gerada por inteligência artificial',
+    description: 'Simulação de como Antônio Petraglia ficaria com barba.',
+    meta: 'Fonte: Inteligencia Artificial',
+    badge: 'Simulação com IA',
+    badgeClass: 'badge-reference',
+    shortLabel: 'Simulação'
   }
 ];
 
