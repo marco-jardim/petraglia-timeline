@@ -2,33 +2,33 @@
 
 const photoProfiles = [
   {
-    id: 'ai-week1',
+    id: 'recent-20251017',
     src: 'assets/petraglia.jpg',
-    alt: 'Estimativa de Antônio Petraglia após uma semana nas ruas, barba e cabelo grisalhos, olhar direto para a câmera.',
-    title: 'Projeção após 1 semana nas ruas',
-    description: 'Imagem gerada com apoio de IA em 18/10/2025 baseada nos relatos mais recentes. Use como referência prioritária ao compartilhar.',
-    meta: 'Atualização: 18/10/2025 · Modelo supervisionado por voluntários',
-    badge: 'Estimativa (IA)',
-    badgeClass: 'badge-ai',
-    shortLabel: 'IA · 1 semana'
+    alt: 'Foto recente de Antônio Petraglia em 17 de outubro de 2025, vestindo blusa cinza esverdeada.',
+    title: 'Registro mais recente (17/10/2025)',
+    description: 'Imagem capturada por voluntários na região da Glória no fim da tarde de 17/10/2025.',
+    meta: 'Confirmada pelas Missionárias da Caridade · 17/10/2025',
+    badge: 'Foto recente',
+    badgeClass: 'badge-recent',
+    shortLabel: '17/10 · Recente'
   },
   {
     id: 'pre-disappearance',
     src: 'assets/petraglia2.jpg',
-    alt: 'Foto real de Antônio Petraglia sorrindo, barba e cabelo grisalhos, vestindo camiseta cinza.',
-    title: 'Foto real antes do desaparecimento',
-    description: 'Registro oficial fornecido pela família em 12/10/2025. Retrata como Antônio costumava se apresentar em público.',
+    alt: 'Foto oficial de Antônio Petraglia sorrindo, barba e cabelo grisalhos, vestindo camiseta cinza.',
+    title: 'Foto oficial antes do desaparecimento',
+    description: 'Registro fornecido pela família em 12/10/2025 e usado nas buscas desde o primeiro dia.',
     meta: 'Fonte: Família Petraglia · 12/10/2025',
     badge: 'Foto oficial',
     badgeClass: 'badge-official',
-    shortLabel: 'Oficial'
+    shortLabel: '12/10 · Oficial'
   },
   {
     id: 'reference',
     src: 'assets/petraglia3.jpg',
-    alt: 'Foto adicional de Antônio Petraglia usada como referência complementar.',
-    title: 'Foto de referência adicional',
-    description: 'Imagem de apoio para reconhecer traços faciais e sorriso característico.',
+    alt: 'Foto complementar de Antônio Petraglia com barba grisalha e camisa clara.',
+    title: 'Foto complementar de referência',
+    description: 'Imagem de apoio para reconhecer traços faciais e sorriso característico em diferentes iluminações.',
     meta: 'Fonte: Arquivo da família',
     badge: 'Referência',
     badgeClass: 'badge-reference',
