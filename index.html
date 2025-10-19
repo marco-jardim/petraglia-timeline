@@ -3,187 +3,1004 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linha do Tempo - Outubro&nbsp;2025</title>
-  <!--
-    Este arquivo é idêntico ao `lambda/index.html`, mas colocado
-    diretamente na raiz do repositório para facilitar a publicação
-    no GitHub Pages.  A página não necessita de backend, pois
-    utiliza Leaflet e OpenStreetMap carregados via CDN.
-  -->
-  <!-- Folha de estilos do Leaflet (sem atributos de integridade para evitar erros de SRI) -->
-  <link rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <title>Desaparecido: Antônio Petraglia</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
+    :root {
+      --primary: #1e90ff;
+      --accent: #ff6f00;
+      --text: #1d2533;
+      --muted: #586174;
+      --surface: #ffffff;
+      --surface-soft: #f1f5f9;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+      --radius-lg: 22px;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: sans-serif;
+      margin: 0;
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(160deg, #f4f7fb 0%, #e9f2ff 45%, #fef7f0 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    header.top-alert {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0.75rem 1.25rem;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    header.top-alert strong {
+      color: #ffd166;
+    }
+
+    header.top-alert a {
+      color: #ffd166;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 2.5rem 1.5rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.75rem;
+    }
+
+    @media (min-width: 960px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 3fr) minmax(260px, 2fr);
+        align-items: stretch;
+      }
+    }
+
+    .person-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .person-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .photo-gallery {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .photo-stage {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.2);
+      background: #cbd5f5;
+      aspect-ratio: 3 / 4;
+    }
+
+    .photo-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #0f172a;
+      background: rgba(255, 255, 255, 0.85);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.35);
+    }
+
+    .photo-badge.badge-ai {
+      background: rgba(255, 111, 0, 0.9);
+      color: #ffffff;
+    }
+
+    .photo-badge.badge-official {
+      background: rgba(30, 144, 255, 0.92);
+      color: #ffffff;
+    }
+
+    .photo-badge.badge-reference {
+      background: rgba(15, 23, 42, 0.85);
+      color: #ffffff;
+    }
+
+    .photo-caption {
+      background: var(--surface-soft);
+      border-radius: 14px;
+      padding: 1rem 1.15rem;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .photo-caption h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+
+    .photo-caption p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .photo-meta {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .photo-controls {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .photo-controls button {
+      flex: 1 1 30%;
+      min-width: 110px;
+      padding: 0.6rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(30, 144, 255, 0.35);
+      background: #ffffff;
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .photo-controls button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(30, 144, 255, 0.25);
+    }
+
+    .photo-controls button:focus-visible {
+      outline: 3px solid rgba(30, 144, 255, 0.35);
+      outline-offset: 2px;
+    }
+
+    .photo-thumbs {
+      display: grid;
+      gap: 0.65rem;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    }
+
+    .photo-thumb {
+      position: relative;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      padding: 0;
+      background: transparent;
+    }
+
+    .photo-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .photo-thumb[aria-current="true"] {
+      border-color: var(--primary);
+      box-shadow: 0 10px 18px rgba(30, 144, 255, 0.25);
+    }
+
+    .photo-thumb.is-active {
+      border-color: var(--primary);
+      box-shadow: 0 10px 18px rgba(30, 144, 255, 0.25);
+    }
+
+    .photo-thumb:hover img {
+      transform: scale(1.04);
+    }
+
+    .photo-thumb span {
+      position: absolute;
+      inset: auto 0 0 0;
+      background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.8));
+      color: #ffffff;
+      font-size: 0.7rem;
+      padding: 0.25rem 0.4rem;
+      text-align: left;
+    }
+
+    .person-info h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(1.9rem, 2.2vw, 2.6rem);
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 1.5rem;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .hero-note {
+      margin: 1rem 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .hero-note strong {
+      color: var(--accent);
+    }
+
+    .person-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem 1.5rem;
       margin: 0;
       padding: 0;
-      line-height: 1.4;
-      background: #fafafa;
-      color: #333;
+      list-style: none;
     }
-    h1 {
-      margin: 0;
-      padding: 1rem;
-      background: #1e90ff;
-      color: white;
-      text-align: center;
+
+    .person-detail-item {
+      background: var(--surface-soft);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
     }
-    #map {
-      height: 400px;
-      width: 100%;
+
+    .person-detail-item span {
+      display: block;
     }
-    .container {
+
+    .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .value {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-      padding: 1rem;
+      gap: 1.25rem;
     }
+
+    .contact-card h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      color: var(--accent);
+    }
+
+    .contact-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .contact-actions {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.85rem 1rem;
+      border-radius: 999px;
+      border: none;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta-button.primary {
+      background: linear-gradient(135deg, #ff8a00, #ff5e00);
+      color: #ffffff;
+      box-shadow: 0 10px 25px rgba(255, 111, 0, 0.35);
+    }
+
+    .cta-button.secondary {
+      background: var(--surface-soft);
+      color: var(--primary);
+      border: 1px solid rgba(30, 144, 255, 0.25);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .cta-button:focus-visible {
+      outline: 3px solid rgba(30, 144, 255, 0.35);
+      outline-offset: 2px;
+    }
+
+    .share-section {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .share-section h2 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.7rem;
+      color: var(--primary);
+      text-align: center;
+    }
+
+    .share-section p {
+      margin: 0 0 1.5rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .share-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.85rem;
+    }
+
+    .share-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid transparent;
+      color: #ffffff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .share-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .share-button:focus-visible {
+      outline: 3px solid rgba(30, 144, 255, 0.35);
+      outline-offset: 2px;
+    }
+
+    .share-instagram { background: linear-gradient(120deg, #f58529, #dd2a7b, #8134af); }
+    .share-facebook { background: #1877f2; }
+    .share-x { background: #010101; }
+    .share-tiktok { background: linear-gradient(135deg, #25f4ee, #fe2c55); }
+    .share-whatsapp { background: #25d366; }
+    .share-telegram { background: #229ed9; }
+
+    .native-share {
+      margin: 1.5rem auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      max-width: 260px;
+      background: #0f172a;
+      border: none;
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 0.8rem 1rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .share-feedback {
+      margin-top: 1rem;
+      min-height: 1.25rem;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #0f172a;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .share-feedback.visible {
+      opacity: 1;
+    }
+
+    .share-feedback[data-status="error"] {
+      color: #b42318;
+    }
+
+    .map-section {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .map-header h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.65rem;
+      color: var(--accent);
+    }
+
+    .map-header p {
+      margin: 0 0 1.5rem;
+      color: var(--muted);
+    }
+
+    .map-layout {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 960px) {
+      .map-layout {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        align-items: start;
+      }
+    }
+
+    .map-container {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 20px 35px rgba(15, 23, 42, 0.18);
+      min-height: 420px;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+    }
+
+    .timeline-container {
+      background: var(--surface-soft);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
     .timeline {
       position: relative;
       margin: 0;
       padding: 0;
       list-style: none;
     }
+
     .timeline::before {
-      content: '';
+      content: "";
+      position: absolute;
+      top: 0.25rem;
+      bottom: 0.25rem;
+      left: 12px;
+      width: 2px;
+      background: rgba(30, 144, 255, 0.35);
+    }
+
+    .timeline-item {
+      margin-left: 36px;
+      margin-bottom: 1.35rem;
+      position: relative;
+      padding-left: 0.5rem;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: attr(data-index);
       position: absolute;
       top: 0;
-      bottom: 0;
-      left: 10px;
-      width: 2px;
-      background: #1e90ff;
-    }
-    .timeline-item {
-      margin-left: 30px;
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      top: 4px;
-      left: -22px;
-      width: 12px;
-      height: 12px;
-      background: #1e90ff;
+      left: -36px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 12px rgba(30, 144, 255, 0.3);
     }
+
     .timeline-date {
-      font-weight: bold;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
     }
+
     .timeline-title {
-      font-size: 1.1rem;
-      margin: 0.2rem 0;
+      margin: 0 0 0.25rem;
+      font-weight: 600;
+      color: var(--text);
     }
+
     .timeline-desc {
       margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
     }
+
     .sighting-icon {
       background: transparent;
       border: none;
     }
+
     .sighting-marker {
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      background: #ff6f00;
-      color: white;
+      background: var(--accent);
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
-      font-weight: bold;
-      border: 2px solid white;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: 2px solid #ffffff;
+      box-shadow: 0 8px 18px rgba(255, 111, 0, 0.35);
     }
-    @media (min-width: 768px) {
-      .container {
-        flex-direction: row;
+
+    .support-section {
+      display: grid;
+      gap: 1.75rem;
+    }
+
+    .support-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+    }
+
+    .support-card h2 {
+      margin: 0 0 1rem;
+      color: var(--primary);
+    }
+
+    .support-list {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+    }
+
+    .support-list li {
+      margin-bottom: 0.75rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    @media (max-width: 540px) {
+      main {
+        padding: 1.75rem 1rem 2.5rem;
       }
-      #map {
-        flex: 2;
-        height: 500px;
+      .share-section,
+      .map-section,
+      .support-card,
+      .person-card,
+      .contact-card {
+        padding: 1.5rem;
       }
-      .timeline-container {
-        flex: 1;
-        max-width: 500px;
-        overflow-y: auto;
+      .timeline::before {
+        left: 10px;
+      }
+      .timeline-item {
+        margin-left: 32px;
+      }
+      .timeline-item::before {
+        left: -32px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Linha do Tempo — Avistamentos do Petraglia</h1>
-  <div class="container">
-    <div id="map"></div>
-    <div class="timeline-container">
-      <ul class="timeline" id="timeline"></ul>
-    </div>
-  </div>
-  <!-- Script do Leaflet (sem atributos de integridade) -->
+  <header class="top-alert">
+    <strong>Ajude a encontrar Antônio Petraglia.</strong> Compartilhe esta página e ligue para <a href="tel:+552125531177">(21) 2253-1177</a> se tiver informações.
+  </header>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-grid">
+        <article class="person-card" aria-labelledby="titulo-principal">
+          <div class="photo-gallery" aria-labelledby="galeria-titulo" role="region" tabindex="0">
+            <div class="photo-stage">
+              <img id="currentPhoto" src="assets/petraglia.jpg" alt="Estimativa de Antônio Petraglia após uma semana nas ruas" loading="lazy">
+              <span class="photo-badge badge-ai" id="photoBadge">Estimativa (IA)</span>
+            </div>
+            <div class="photo-caption" aria-live="polite">
+              <h2 id="photoTitle">Projeção após uma semana</h2>
+              <p id="photoDescription">Imagem gerada com apoio de IA em 18/10/2025 baseada em relatos de voluntários.</p>
+              <p class="photo-meta" id="photoMeta">Priorize esta imagem ao compartilhar.</p>
+            </div>
+            <div class="photo-controls" role="group" aria-label="Controles da galeria de fotos">
+              <button type="button" id="photoPrev" aria-label="Ver foto anterior">Anterior</button>
+              <button type="button" id="photoShuffle" aria-label="Embaralhar ordem das fotos">Embaralhar fotos</button>
+              <button type="button" id="photoNext" aria-label="Ver próxima foto">Próxima</button>
+            </div>
+            <div class="photo-thumbs" id="photoThumbnails" role="list" aria-label="Miniaturas das fotos disponíveis"></div>
+          </div>
+          <div class="person-info">
+            <h1 id="titulo-principal">Ajude a encontrar Antônio Petraglia</h1>
+            <p class="hero-subtitle">Desaparecido desde 12/10/2025. Último contato registrado na região central do Rio de Janeiro.</p>
+            <ul class="person-details" aria-label="Informações sobre Antônio Petraglia">
+              <li class="person-detail-item"><span class="label">Idade</span><span class="value">70 anos</span></li>
+              <li class="person-detail-item"><span class="label">Altura</span><span class="value">1,75 m</span></li>
+              <li class="person-detail-item"><span class="label">Olhos</span><span class="value">Castanhos</span></li>
+              <li class="person-detail-item"><span class="label">Cabelo</span><span class="value">Grisalho</span></li>
+              <li class="person-detail-item"><span class="label">Vestimentas</span><span class="value">Shorts preto, blusa cinza esverdeada, tênis claro</span></li>
+              <li class="person-detail-item"><span class="label">Condição médica</span><span class="value">Leve grau de Alzheimer</span></li>
+            </ul>
+            <p class="hero-note" id="galeria-titulo"><strong>Atenção:</strong> a imagem destacada é uma projeção com IA após uma semana desaparecido. Use as setas ou embaralhe para compartilhar todas as fotos oficiais e estimadas.</p>
+          </div>
+        </article>
+        <aside class="contact-card" aria-labelledby="contato-titulo">
+          <h2 id="contato-titulo">Canais de contato imediato</h2>
+          <p>Se você tiver qualquer informação sobre o paradeiro de Antônio Petraglia, entre em contato agora mesmo.</p>
+          <div class="contact-actions">
+            <a class="cta-button primary" href="tel:+552125531177">Ligar para Disque Denúncia (21) 2253-1177</a>
+            <a class="cta-button secondary" href="https://www.instagram.com/vamos_achar_antonio" target="_blank" rel="noopener">Instagram @vamos_achar_antonio</a>
+            <p><strong>Serviço:</strong> Disque Denúncia &bull; <strong>Cidade:</strong> Rio de Janeiro - RJ</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="share-section" id="compartilhar" aria-labelledby="share-heading">
+      <h2 id="share-heading">Compartilhe com sua rede</h2>
+      <p>Espalhe a mensagem nas redes sociais. Cada compartilhamento aumenta as chances de localizar Antônio Petraglia.</p>
+      <div class="share-grid">
+        <a class="share-button share-instagram" href="https://www.instagram.com/vamos_achar_antonio" data-share="instagram" data-copy="true" rel="noopener" target="_blank">Instagram</a>
+        <a class="share-button share-facebook" href="https://www.facebook.com/sharer/sharer.php" data-share="facebook" rel="noopener" target="_blank">Facebook</a>
+        <a class="share-button share-x" href="https://twitter.com/intent/tweet" data-share="x" rel="noopener" target="_blank">X (Twitter)</a>
+        <a class="share-button share-tiktok" href="https://www.tiktok.com" data-share="tiktok" data-copy="true" rel="noopener" target="_blank">TikTok</a>
+        <a class="share-button share-whatsapp" href="https://api.whatsapp.com/send" data-share="whatsapp" rel="noopener" target="_blank">WhatsApp</a>
+        <a class="share-button share-telegram" href="https://t.me/share/url" data-share="telegram" rel="noopener" target="_blank">Telegram</a>
+      </div>
+      <button class="native-share" id="nativeShare" type="button">Compartilhar pelo dispositivo</button>
+      <div class="share-feedback" id="shareFeedback" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="map-section" id="avistamentos" aria-labelledby="avistamentos-heading">
+      <div class="map-header">
+        <h2 id="avistamentos-heading">Últimos avistamentos</h2>
+        <p>Acompanhe os locais onde Antônio foi visto pela última vez. Clique nos pontos para abrir detalhes e compartilhar rapidamente.</p>
+      </div>
+      <div class="map-layout">
+        <div class="map-container" aria-hidden="false">
+          <div id="map" role="application" aria-label="Mapa com pontos de avistamento"></div>
+        </div>
+        <div class="timeline-container">
+          <ol class="timeline" id="timeline"></ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="support-section" id="ajuda" aria-labelledby="support-heading">
+      <div class="support-card">
+        <h2 id="support-heading">Como você pode ajudar</h2>
+        <ul class="support-list">
+          <li>Compartilhe esta página nas redes sociais e grupos de mensagens.</li>
+          <li>Salve o número do Disque Denúncia (21) 2253-1177 e mantenha contato caso veja alguém com características semelhantes.</li>
+          <li>Baixe e imprima cartazes com a foto de Antônio para divulgar em comércios e prédios.</li>
+          <li>Informe imediatamente às autoridades locais ou ao Disque Denúncia qualquer nova informação.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <footer>
+    Página construída colaborativamente para apoiar a busca por Antônio Petraglia. <a href="#compartilhar">Compartilhe agora</a> e ajude a ampliar o alcance.
+  </footer>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
+    const photoProfiles = [
+      {
+        id: 'ai-week1',
+        src: 'assets/petraglia.jpg',
+        alt: 'Estimativa de Antônio Petraglia após uma semana nas ruas, barba e cabelo grisalhos, olhar direto para a câmera.',
+        title: 'Projeção após 1 semana nas ruas',
+        description: 'Imagem gerada com apoio de IA em 18/10/2025 baseada nos relatos mais recentes. Use como referência prioritária ao compartilhar.',
+        meta: 'Atualização: 18/10/2025 · Modelo supervisionado por voluntários',
+        badge: 'Estimativa (IA)',
+        badgeClass: 'badge-ai',
+        shortLabel: 'IA · 1 semana'
+      },
+      {
+        id: 'pre-disappearance',
+        src: 'assets/petraglia2.jpg',
+        alt: 'Foto real de Antônio Petraglia sorrindo, barba e cabelo grisalhos, vestindo camiseta cinza.',
+        title: 'Foto real antes do desaparecimento',
+        description: 'Registro oficial fornecido pela família em 12/10/2025. Retrata como Antônio costumava se apresentar em público.',
+        meta: 'Fonte: Família Petraglia · 12/10/2025',
+        badge: 'Foto oficial',
+        badgeClass: 'badge-official',
+        shortLabel: 'Oficial'
+      },
+      {
+        id: 'reference',
+        src: 'assets/petraglia3.jpg',
+        alt: 'Foto adicional de Antônio Petraglia usada como referência complementar.',
+        title: 'Foto de referência adicional',
+        description: 'Imagem de apoio para reconhecer traços faciais e sorriso característico.',
+        meta: 'Fonte: Arquivo da família',
+        badge: 'Referência',
+        badgeClass: 'badge-reference',
+        shortLabel: 'Referência'
+      }
+    ];
+
+    const galleryElements = {
+      container: document.querySelector('.photo-gallery'),
+      mainImage: document.getElementById('currentPhoto'),
+      badge: document.getElementById('photoBadge'),
+      title: document.getElementById('photoTitle'),
+      description: document.getElementById('photoDescription'),
+      meta: document.getElementById('photoMeta'),
+      prev: document.getElementById('photoPrev'),
+      next: document.getElementById('photoNext'),
+      shuffle: document.getElementById('photoShuffle'),
+      thumbs: document.getElementById('photoThumbnails')
+    };
+
+    let currentPhotoIndex = 0;
+    let thumbButtons = [];
+
+    const updateThumbState = (activeIndex) => {
+      thumbButtons.forEach((button, index) => {
+        const isActive = index === activeIndex;
+        button.setAttribute('aria-current', isActive ? 'true' : 'false');
+        button.classList.toggle('is-active', isActive);
+      });
+    };
+
+    const showPhoto = (index) => {
+      if (!galleryElements.mainImage) {
+        return;
+      }
+
+      currentPhotoIndex = (index + photoProfiles.length) % photoProfiles.length;
+      const photo = photoProfiles[currentPhotoIndex];
+
+      galleryElements.mainImage.src = photo.src;
+      galleryElements.mainImage.alt = photo.alt;
+
+      if (galleryElements.badge) {
+        if (photo.badge) {
+          galleryElements.badge.textContent = photo.badge;
+          galleryElements.badge.className = `photo-badge ${photo.badgeClass || ''}`;
+          galleryElements.badge.hidden = false;
+        } else {
+          galleryElements.badge.hidden = true;
+        }
+      }
+
+      galleryElements.title.textContent = photo.title;
+      galleryElements.description.textContent = photo.description;
+
+      if (galleryElements.meta) {
+        if (photo.meta) {
+          galleryElements.meta.textContent = photo.meta;
+          galleryElements.meta.hidden = false;
+        } else {
+          galleryElements.meta.textContent = '';
+          galleryElements.meta.hidden = true;
+        }
+      }
+
+      updateThumbState(currentPhotoIndex);
+    };
+
+    const movePhoto = (step) => {
+      showPhoto(currentPhotoIndex + step);
+    };
+
+    const shufflePhoto = () => {
+      if (photoProfiles.length <= 1) {
+        return;
+      }
+      let nextIndex = Math.floor(Math.random() * photoProfiles.length);
+      if (nextIndex === currentPhotoIndex) {
+        nextIndex = (nextIndex + 1) % photoProfiles.length;
+      }
+      showPhoto(nextIndex);
+    };
+
+    const buildThumbnails = () => {
+      if (!galleryElements.thumbs) {
+        return;
+      }
+
+      galleryElements.thumbs.innerHTML = '';
+      thumbButtons = photoProfiles.map((photo, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'photo-thumb';
+        button.dataset.index = String(index);
+        button.setAttribute('role', 'listitem');
+        button.setAttribute('aria-label', `${photo.title}${photo.badge ? ` (${photo.badge})` : ''}`);
+
+        const img = document.createElement('img');
+        img.src = photo.src;
+        img.alt = photo.alt;
+        button.appendChild(img);
+
+        const caption = document.createElement('span');
+        caption.textContent = photo.shortLabel || photo.title;
+        button.appendChild(caption);
+
+        button.addEventListener('click', () => showPhoto(index));
+        galleryElements.thumbs.appendChild(button);
+
+        return button;
+      });
+    };
+
+    if (galleryElements.mainImage) {
+      buildThumbnails();
+      showPhoto(0);
+
+      galleryElements.prev?.addEventListener('click', () => movePhoto(-1));
+      galleryElements.next?.addEventListener('click', () => movePhoto(1));
+      galleryElements.shuffle?.addEventListener('click', shufflePhoto);
+
+      galleryElements.container?.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          movePhoto(-1);
+        } else if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          movePhoto(1);
+        } else if (event.key === ' ') {
+          event.preventDefault();
+          shufflePhoto();
+        }
+      });
+    }
+
     const events = [
       {
-        date: '2025‑10‑14',
+        date: '2025-10-14',
         time: '14:00',
         title: 'Praia da Urca',
         description: 'Visto por um pescador na Praia da Urca.',
-        coords: [-22.94794, -43.16326],
+        coords: [-22.94794, -43.16326]
       },
       {
-        date: '2025‑10‑15',
+        date: '2025-10-15',
         time: '20:00',
         title: 'Boemia da Lapa Cavern Pub',
-        description: 'Visto às 20h no Bar Boemia da Lapa Cavern Club (Av. Mem de Sá, 104).',
-        coords: [-22.9128251, -43.1827557],
+        description: 'Visto às 20h no Bar Boemia da Lapa Cavern Club (Avenida Mem de Sá, 104).',
+        coords: [-22.9128251, -43.1827557]
       },
       {
-        date: '2025‑10‑15',
+        date: '2025-10-15',
         time: '23:30',
         title: 'Arcos da Lapa',
         description: 'Após ser encontrado deitado na Rua Gomes Freire, caminhou em direção aos Arcos da Lapa.',
-        coords: [-22.9125944, -43.17985],
+        coords: [-22.9125944, -43.17985]
       },
       {
-        date: '2025‑10‑17',
+        date: '2025-10-17',
         time: '10:00',
         title: 'Escadaria Selarón',
         description: 'Visto por voluntária do SOS Crianças Desaparecidas próximo à base da Escadaria Selarón.',
-        coords: [-22.9143222, -43.1789528],
+        coords: [-22.9143222, -43.1789528]
       },
       {
-        date: '2025‑10‑17',
+        date: '2025-10-17',
         time: '14:00',
         title: 'Cinelândia',
         description: 'Visto na Cinelândia no ponto de distribuição de alimentos.',
-        coords: [-22.9066, -43.1721],
-      },
+        coords: [-22.9066, -43.1721]
+      }
     ];
+
     const map = L.map('map', { scrollWheelZoom: true }).setView([-22.9128, -43.1805], 14);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
     }).addTo(map);
+
     const routePoints = [];
     const timelineEl = document.getElementById('timeline');
-    const createSightingIcon = label => L.divIcon({
+
+    const createSightingIcon = (label) => L.divIcon({
       html: `<div class="sighting-marker" title="Ponto de avistamento ${label}">${label}</div>`,
       iconSize: [26, 26],
       iconAnchor: [13, 26],
       popupAnchor: [0, -24],
       className: 'sighting-icon leaflet-div-icon'
     });
+
     events.forEach((event, index) => {
       const order = index + 1;
       routePoints.push(event.coords);
       const marker = L.marker(event.coords, { icon: createSightingIcon(order) }).addTo(map);
-      marker.bindPopup(`<strong>${order}. ${event.title}</strong><br>${event.date} ${event.time}<br>${event.description}`);
+
+      const [year, month, day] = event.date.split('-');
+      const displayDate = `${day}/${month}/${year}`;
+
+      marker.bindPopup(`<strong>${order}. ${event.title}</strong><br>${displayDate} às ${event.time}<br>${event.description}`);
+
       const li = document.createElement('li');
       li.className = 'timeline-item';
+      li.dataset.index = order;
       li.innerHTML = `
-        <div class="timeline-date">${event.date} ${event.time}</div>
-        <div class="timeline-title">${order}. ${event.title}</div>
+        <div class="timeline-date">${displayDate} &bull; ${event.time}</div>
+        <div class="timeline-title">${event.title}</div>
         <div class="timeline-desc">${event.description}</div>
       `;
       li.addEventListener('click', () => {
@@ -192,7 +1009,7 @@
       });
       timelineEl.appendChild(li);
     });
-    // Traçado tracejado sinaliza o caminho percorrido entre os avistamentos
+
     const polyline = L.polyline(routePoints, {
       color: '#ff6f00',
       weight: 4,
@@ -201,7 +1018,85 @@
       lineCap: 'round',
       lineJoin: 'round'
     }).addTo(map);
+
     map.fitBounds(polyline.getBounds(), { padding: [20, 20] });
+
+    const shareButtons = document.querySelectorAll('[data-share]');
+    const shareFeedback = document.getElementById('shareFeedback');
+    const nativeShareButton = document.getElementById('nativeShare');
+    const shareMessagePlain = 'Ajude a encontrar Antônio Petraglia, 70 anos. Último contato no centro do Rio de Janeiro. Ligue (21) 2253-1177 - Disque Denúncia.';
+    const shareText = encodeURIComponent(shareMessagePlain);
+    const shareUrl = encodeURIComponent(window.location.href);
+
+    const shareLinks = {
+      instagram: 'https://www.instagram.com/vamos_achar_antonio',
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`,
+      x: `https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`,
+      tiktok: 'https://www.tiktok.com/share?lang=pt-BR',
+      whatsapp: `https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}`,
+      telegram: `https://t.me/share/url?url=${shareUrl}&text=${shareText}`
+    };
+
+    let feedbackTimeout;
+    const copyFallback = (message) => {
+      if (!navigator.clipboard) {
+        showFeedback('Copie a mensagem manualmente: ' + message, true);
+        return;
+      }
+      navigator.clipboard.writeText(`${message} ${window.location.href}`)
+        .then(() => showFeedback('Mensagem copiada! Abra o aplicativo e cole para compartilhar.'))
+        .catch(() => showFeedback('Não foi possível copiar automaticamente. Copie manualmente.', true));
+    };
+
+    const showFeedback = (message, isError = false) => {
+      clearTimeout(feedbackTimeout);
+      shareFeedback.textContent = message;
+      shareFeedback.dataset.status = isError ? 'error' : 'success';
+      shareFeedback.classList.add('visible');
+      feedbackTimeout = setTimeout(() => {
+        shareFeedback.classList.remove('visible');
+      }, 5000);
+    };
+
+    shareButtons.forEach((button) => {
+      const platform = button.dataset.share;
+      const shouldCopy = button.dataset.copy === 'true';
+      const link = shareLinks[platform];
+
+      if (!shouldCopy && link) {
+        button.href = link;
+        button.target = '_blank';
+      }
+
+      button.addEventListener('click', (event) => {
+        if (shouldCopy) {
+          event.preventDefault();
+          copyFallback(shareMessagePlain);
+          if (link) {
+            window.open(link, '_blank', 'noopener');
+          }
+        }
+      });
+    });
+
+    if (navigator.share) {
+      nativeShareButton.addEventListener('click', async () => {
+        try {
+          await navigator.share({
+            title: 'Ajude a encontrar Antônio Petraglia',
+            text: shareMessagePlain,
+            url: window.location.href
+          });
+          showFeedback('Obrigado por compartilhar!');
+        } catch (error) {
+          if (error && error.name !== 'AbortError') {
+            showFeedback('Compartilhamento cancelado ou indisponível.', true);
+          }
+        }
+      });
+    } else {
+      nativeShareButton.style.display = 'none';
+    }
   </script>
 </body>
 </html>
