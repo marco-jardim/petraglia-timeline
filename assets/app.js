@@ -184,6 +184,27 @@ const events = [
     description: 'Visto na Cinelândia no ponto de distribuição de alimentos.',
     coords: [-22.9066, -43.1721],
   },
+  {
+    date: '2025-10-16',
+    time: '16:00',
+    title: 'Travessa do Mosqueira',
+    description: 'Missionárias da Caridade informaram que Antônio chegou às 16h para a refeição solidária no dia 16/10, aceitando água e lanche.',
+    coords: [-22.9141483, -43.1793843],
+  },
+  {
+    date: '2025-10-17',
+    time: '16:00',
+    title: 'Travessa do Mosqueira',
+    description: 'Religiosas do convento relataram que Antônio retornou ao ponto de distribuição às 16h do dia 17/10, conversou brevemente e seguiu em direção à Rua da Glória.',
+    coords: [-22.9141483, -43.1793843],
+  },
+  {
+    date: '2025-10-17',
+    time: '19:00',
+    title: 'Rio Farma — Rua da Glória',
+    description: 'Equipe da drogaria Rio Farma (Rua da Glória, 268) informou que Antônio foi visto saindo da loja por volta das 19h do dia 17/10, seguindo em direção ao Largo da Glória.',
+    coords: [-22.9193597, -43.179784],
+  },
 ];
 
 const map = L.map('map', { scrollWheelZoom: true }).setView([-22.9128, -43.1805], 14);
