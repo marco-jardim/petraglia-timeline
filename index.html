@@ -4,6 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Desaparecido: Antônio Petraglia</title>
+  <script>
+    (function () {
+      try {
+        var storedTheme = localStorage.getItem('pt-theme-preference');
+        if (storedTheme === 'light' || storedTheme === 'dark') {
+          document.documentElement.setAttribute('data-theme', storedTheme);
+          document.documentElement.style.colorScheme = storedTheme;
+        }
+      } catch (error) {
+        /* storage indisponível, seguir configuração automática */
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="icon" type="image/png" href="assets/favicon.png" sizes="32x32">
@@ -13,8 +26,16 @@
     <strong>Ajude a encontrar Antônio Petraglia.</strong> Compartilhe esta página e ligue para <a href="tel:+552125531177">(21) 2253-1177</a> se tiver informações.
   </header>
   <div class="update-banner" role="note" aria-live="polite">
-    <span class="update-label">Atualizado em</span>
-    <time datetime="2025-10-19">19/10/2025</time>
+    <div class="update-content">
+      <span class="update-label">Atualizado em</span>
+      <time datetime="2025-10-19">19/10/2025</time>
+    </div>
+    <div class="theme-selector" role="group" aria-label="Selecionar tema de cor">
+      <span class="theme-selector-label" aria-hidden="true">Tema</span>
+      <button type="button" class="theme-option" data-theme-option="auto" data-mode-label="• Sistema" aria-pressed="true" title="Usar o modo automático do sistema">Auto</button>
+      <button type="button" class="theme-option" data-theme-option="light" aria-pressed="false" title="Forçar tema claro">Claro</button>
+      <button type="button" class="theme-option" data-theme-option="dark" aria-pressed="false" title="Forçar tema escuro">Escuro</button>
+    </div>
   </div>
   <main>
     <section class="hero" id="inicio">

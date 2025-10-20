@@ -148,6 +148,106 @@ if (galleryElements.mainImage) {
   });
 }
 
+const THEME_STORAGE_KEY = 'pt-theme-preference';
+const themeButtons = Array.from(document.querySelectorAll('[data-theme-option]'));
+const systemThemeQuery = typeof window.matchMedia === 'function'
+  ? window.matchMedia('(prefers-color-scheme: dark)')
+  : { matches: false };
+const autoThemeButton = themeButtons.find((button) => button.dataset.themeOption === 'auto');
+
+const readStoredTheme = () => {
+  try {
+    const stored = localStorage.getItem(THEME_STORAGE_KEY);
+    if (stored === 'light' || stored === 'dark') {
+      return stored;
+    }
+  } catch (error) {
+    // storage may be unavailable (private mode or restricted context)
+  }
+  return 'auto';
+};
+
+const persistTheme = (value) => {
+  try {
+    if (value === 'light' || value === 'dark') {
+      localStorage.setItem(THEME_STORAGE_KEY, value);
+    } else {
+      localStorage.removeItem(THEME_STORAGE_KEY);
+    }
+  } catch (error) {
+    // ignore persistence errors to avoid breaking the experience
+  }
+};
+
+const setThemeAttribute = (value) => {
+  const root = document.documentElement;
+  if (value === 'light' || value === 'dark') {
+    root.setAttribute('data-theme', value);
+    root.style.colorScheme = value;
+  } else {
+    root.removeAttribute('data-theme');
+    root.style.colorScheme = '';
+  }
+};
+
+const updateThemeButtons = (active) => {
+  themeButtons.forEach((button) => {
+    const isActive = button.dataset.themeOption === active;
+    button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+};
+
+const updateAutoButtonLabel = () => {
+  if (!autoThemeButton) {
+    return;
+  }
+  const systemMode = systemThemeQuery.matches ? 'escuro' : 'claro';
+  autoThemeButton.setAttribute('data-mode-label', `• ${systemMode.toUpperCase()}`);
+  autoThemeButton.setAttribute(
+    'title',
+    `Usar o modo automático do sistema (${systemMode}).`
+  );
+};
+
+let activeTheme = 'auto';
+
+const applyTheme = (value, { persist = false } = {}) => {
+  const resolved = value === 'light' || value === 'dark' ? value : 'auto';
+  if (persist) {
+    persistTheme(resolved);
+  }
+  setThemeAttribute(resolved);
+  updateThemeButtons(resolved);
+  updateAutoButtonLabel();
+  activeTheme = resolved;
+};
+
+if (themeButtons.length) {
+  activeTheme = readStoredTheme();
+  applyTheme(activeTheme);
+
+  const syncSystemTheme = () => {
+    if (activeTheme === 'auto') {
+      applyTheme('auto');
+    }
+  };
+
+  if (typeof systemThemeQuery.addEventListener === 'function') {
+    systemThemeQuery.addEventListener('change', syncSystemTheme);
+  } else if (typeof systemThemeQuery.addListener === 'function') {
+    systemThemeQuery.addListener(syncSystemTheme);
+  }
+
+  themeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const selected = button.dataset.themeOption;
+      applyTheme(selected, { persist: true });
+    });
+  });
+} else {
+  updateAutoButtonLabel();
+}
+
 const events = [
   {
     date: '2025-10-14',
@@ -235,7 +335,7 @@ const events = [
   },
   {
     date: '2025-10-18',
-    time: 'Incerto',
+    time: 'Tarde',
     title: 'Arcos da Lapa',
     description: 'Avistado nos Arcos da Lapa no dia 18/10; recebeu um casaco de outra pessoa em situação de rua e seguiu em direção à Glória, possivelmente para a Avenida Marechal Câmara.',
     coords: [-22.9125944, -43.17985],
@@ -246,7 +346,7 @@ const events = [
     title: 'Travessa do Mosqueira',
     description: 'Avistado por um frequentador de bar na Travessa do Mosqueira no dia 18/10, à tarde, vestindo casaco, calça e chinelo.',
     coords: [-22.9141271, -43.1791717],
-  },  
+  },
   {
     date: '2025-10-19',
     time: 'Manhã',

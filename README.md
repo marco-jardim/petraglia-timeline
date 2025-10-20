@@ -10,6 +10,7 @@ Site informativo que reúne os esforços para localizar Antônio Petraglia, prof
 - **Seção “Repercussão na imprensa”** com cards para O Globo, Veja Rio, O Dia e Record TV, cada um apontando para a matéria original.
 - **Compartilhamento facilitado** (Instagram, Facebook, X, TikTok, WhatsApp, Telegram e Web Share API) com feedback visual e fallback de cópia automática.
 - **Cartaz A4 pronto para impressão** para ampliar o alcance offline, além de orientações rápidas na seção de apoio.
+- **Tema automático/claro/escuro** com detecção do sistema e persistência local, garantindo leitura confortável em qualquer ambiente.
 
 ## Estrutura do projeto
 
