@@ -420,6 +420,13 @@ const events = [
   },
   {
     date: '2025-10-17',
+    time: 'Manhã',
+    title: 'Praça Edson Cortes',
+    description: 'Avistado na Praça Edson Cortes, na Glória na manhã do dia 17/10, com aspecto sujo, interagindo com cachorro de rua.',
+    coords: [-22.919457, -43.176493],
+  },
+  {
+    date: '2025-10-17',
     time: '10:00',
     title: 'Escadaria Selarón',
     description: 'Visto por voluntária do SOS Crianças Desaparecidas próximo à base da Escadaria Selarón.',
