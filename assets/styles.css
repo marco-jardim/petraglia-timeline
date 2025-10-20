@@ -749,11 +749,32 @@ section {
 .flyer-card {
   border: 1px solid rgba(30, 144, 255, 0.18);
   background: linear-gradient(160deg, rgba(30, 144, 255, 0.08), rgba(255, 111, 0, 0.08));
+  position: relative;
+  overflow: hidden;
 }
 
 .flyer-card h3 {
   margin-top: 0;
   color: var(--accent);
+}
+
+.flyer-badge {
+  display: inline-block;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
+  margin-bottom: 1rem;
+}
+
+.flyer-intro {
+  margin: 0 0 1.25rem;
+  color: var(--muted);
 }
 
 .download-button {
@@ -762,7 +783,7 @@ section {
   justify-content: center;
   gap: 0.5rem;
   margin-top: 1rem;
-  padding: 0.85rem 1.35rem;
+  padding: 1rem 1.5rem;
   border-radius: 999px;
   background: linear-gradient(135deg, #1e90ff, #2563eb);
   color: #ffffff;
@@ -770,6 +791,7 @@ section {
   text-decoration: none;
   box-shadow: 0 12px 24px rgba(30, 144, 255, 0.25);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: min(100%, 320px);
 }
 
 .download-button:hover {
@@ -780,6 +802,53 @@ section {
 .download-button:focus-visible {
   outline: 3px solid rgba(30, 144, 255, 0.35);
   outline-offset: 2px;
+}
+
+.download-button-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.download-button-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.25;
+}
+
+.download-button-text strong {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.download-button-text small {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.download-button-pulse {
+  animation: ctaPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes ctaPulse {
+  0%, 100% {
+    box-shadow: 0 12px 24px rgba(30, 144, 255, 0.25);
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    box-shadow: 0 16px 32px rgba(37, 99, 235, 0.32);
+    transform: translateY(-2px) scale(1.02);
+  }
+}
+
+.flyer-placements {
+  margin: 1.25rem 0 0.75rem;
+  padding-left: 1.25rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  display: grid;
+  gap: 0.4rem;
 }
 
 .download-hint {
