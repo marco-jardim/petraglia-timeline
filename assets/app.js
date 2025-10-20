@@ -151,7 +151,7 @@ if (galleryElements.mainImage) {
 const events = [
   {
     date: '2025-10-14',
-    time: '14:00',
+    time: 'Incerta',
     title: 'Praia da Urca',
     description: 'Visto por um pescador na Praia da Urca.',
     coords: [-22.94794, -43.16326],
@@ -174,7 +174,7 @@ const events = [
     date: '2025-10-16',
     time: '16:00',
     title: 'Travessa do Mosqueira',
-    description: 'Missionárias da Caridade informaram que Antônio chegou às 16h para a refeição solidária no dia 16/10, aceitando água e lanche.',
+    description: 'Missionárias da Caridade informaram que Antônio chegou às 16h para a refeição solidária no dia 16/10, aceitando refeição.',
     coords: [-22.9141483, -43.1793843],
   },
   {
@@ -195,7 +195,7 @@ const events = [
     date: '2025-10-17',
     time: '16:00',
     title: 'Travessa do Mosqueira',
-    description: 'Religiosas do convento relataram que Antônio retornou ao ponto de distribuição às 16h do dia 17/10, conversou brevemente e seguiu em direção à Rua da Glória.',
+    description: 'Religiosas do convento relataram que Antônio retornou ao ponto de distribuição às 16h do dia 17/10, aceitando refeição.',
     coords: [-22.9141483, -43.1793843],
   },
   {
