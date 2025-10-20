@@ -158,6 +158,13 @@ const events = [
   },
   {
     date: '2025-10-15',
+    time: 'Incerto',
+    title: 'Restaurante Gohan — Rua Joaquim Silva',
+    description: 'Avistado por um garçom em frente ao restaurante Gohan (Rua Joaquim Silva, 127), na Lapa, no dia 15/10.',
+    coords: [-22.9152095, -43.1790386],
+  },
+  {
+    date: '2025-10-15',
     time: '20:00',
     title: 'Boemia da Lapa Cavern Pub',
     description: 'Visto às 20h no Bar Boemia da Lapa Cavern Club (Avenida Mem de Sá, 104).',
@@ -176,6 +183,13 @@ const events = [
     title: 'Travessa do Mosqueira',
     description: 'Missionárias da Caridade informaram que Antônio chegou às 16h para a refeição solidária no dia 16/10, aceitando refeição.',
     coords: [-22.9141483, -43.1793843],
+  },
+  {
+    date: '2025-10-17',
+    time: 'Manhã',
+    title: 'Avenida Franklin Roosevelt, 166 (entre IBGE e Consulado da Itália)',
+    description: 'Avistado na Avenida Franklin Roosevelt, nº 166 (entre o IBGE e o Consulado da Itália) na manhã do dia 17/10.',
+    coords: [-22.9095275, -43.1702636],
   },
   {
     date: '2025-10-17',
@@ -200,10 +214,45 @@ const events = [
   },
   {
     date: '2025-10-17',
+    time: 'Incerto',
+    title: 'Arcos da Lapa',
+    description: 'Avistado nos Arcos da Lapa no dia 17/10, trajando bermuda e descalço; horário não determinado; relato feito por uma pessoa em situação de rua.',
+    coords: [-22.9125944, -43.17985],
+  },
+  {
+    date: '2025-10-17',
     time: '19:00',
     title: 'Rio Farma — Rua da Glória',
     description: 'Equipe da drogaria Rio Farma (Rua da Glória, 268) informou que Antônio foi visto saindo da loja por volta das 19h do dia 17/10, seguindo em direção ao Largo da Glória.',
     coords: [-22.9193597, -43.179784],
+  },
+  {
+    date: '2025-10-18',
+    time: 'Almoço',
+    title: 'Feira da Glória (Praça Paris)',
+    description: 'Avistado próximo da Feira da Glória, durante o horário de almoço no dia 18/10; um flanelinha almoçou com ele e relatou detalhes pessoais que confirmam sua identidade.',
+    coords: [-22.9168574, -43.1758537],
+  },
+  {
+    date: '2025-10-18',
+    time: 'Tarde',
+    title: 'Travessa do Mosqueira',
+    description: 'Avistado por um frequentador de bar na Travessa do Mosqueira no dia 18/10, à tarde, vestindo casaco, calça e chinelo.',
+    coords: [-22.9141271, -43.1791717],
+  },
+  {
+    date: '2025-10-18',
+    time: 'Incerto',
+    title: 'Arcos da Lapa',
+    description: 'Avistado nos Arcos da Lapa no dia 18/10; recebeu um casaco e seguiu em direção à Glória, possivelmente para a Avenida Marechal Câmara.',
+    coords: [-22.9125944, -43.17985],
+  },
+  {
+    date: '2025-10-19',
+    time: 'Manhã',
+    title: 'Farmácia Dona Farma — Rua Almirante Tamandaré',
+    description: 'Avistado por uma pessoa entre 9 e 10 h da manhã do dia 19/10 na Farmácia Dona Farma (Rua Almirante Tamandaré, 66).',
+    coords: [-22.93213, -43.1761142],
   },
 ];
 
