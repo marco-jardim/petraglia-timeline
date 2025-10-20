@@ -142,9 +142,13 @@ header.top-alert a {
   align-items: center;
   gap: 0.75rem;
   font-size: 0.95rem;
-  padding: 0.65rem 1rem;
+  padding: 0.65rem 1.5rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  max-width: 1200px;
+  margin: 1.25rem auto 0;
+  width: 100%;
+  border-radius: var(--radius-lg);
 }
 
 .update-content {
@@ -225,6 +229,7 @@ header.top-alert a {
     grid-template-columns: 1fr;
     justify-items: center;
     text-align: center;
+    margin: 1rem auto 0;
   }
 
   .theme-selector {
@@ -1110,9 +1115,12 @@ section {
 
 footer {
   text-align: center;
-  padding: 2rem 1rem 3rem;
+  padding: 2rem 1.5rem 3rem;
   color: var(--muted);
   font-size: 0.9rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 footer p {
