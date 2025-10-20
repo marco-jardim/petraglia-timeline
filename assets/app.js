@@ -6,14 +6,15 @@ const trackAnalyticsEvent = (name, payload = {}) => {
   }
 
   try {
-    if (typeof window.sa_event === 'function') {
-      window.sa_event(name, payload);
-      return true;
+    if (typeof window.sa_event !== 'function') {
+      window.sa_event = function () {
+        const args = Array.from(arguments);
+        (window.sa_event.q = window.sa_event.q || []).push(args);
+      };
     }
 
-    const queue = window.sa_event_queue || [];
-    queue.push([name, payload]);
-    window.sa_event_queue = queue;
+    window.sa_event(name, payload);
+    return true;
   } catch (error) {
     // ignore analytics errors to avoid disrupting the UX
   }
@@ -268,18 +269,111 @@ if (themeButtons.length) {
 } else {
   updateAutoButtonLabel();
 }
+const sanitizeAnalyticsToken = (value) => {
+  if (!value) {
+    return '';
+  }
+  return String(value)
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+};
 
-const flyerDownloadButton = document.querySelector('.download-button[href$=".pdf"]');
+const createFallbackLinkEventName = (link, index) => {
+  const descriptiveSources = [
+    link.dataset.share,
+    link.dataset.modeLabel,
+    link.getAttribute('aria-label'),
+    link.textContent,
+    link.getAttribute('href'),
+  ];
 
-if (flyerDownloadButton) {
-  flyerDownloadButton.addEventListener('click', () => {
-    trackAnalyticsEvent('cartaz_pdf_download', {
-      href: flyerDownloadButton.getAttribute('href'),
-      theme: activeTheme,
-      path: window.location.pathname,
-    });
+  for (const source of descriptiveSources) {
+    const token = sanitizeAnalyticsToken(source);
+    if (token) {
+      return `link_click_${token}`;
+    }
+  }
+
+  return `link_click_${index}`;
+};
+
+const resolveClosestContext = (element) => {
+  let context = element.closest('[data-analytics-context]');
+  if (context) {
+    return context.getAttribute('data-analytics-context');
+  }
+
+  const sectionWithId = element.closest('section[id], header[id], footer[id], main[id]');
+  if (sectionWithId && sectionWithId.id) {
+    return sectionWithId.id;
+  }
+
+  const semanticContainer = element.closest('section, header, footer, main, aside, nav');
+  if (semanticContainer && semanticContainer.tagName) {
+    return semanticContainer.tagName.toLowerCase();
+  }
+
+  return 'document';
+};
+
+const getAnalyticsTheme = () => {
+  if (activeTheme && activeTheme !== 'auto') {
+    return activeTheme;
+  }
+  return document.documentElement.getAttribute('data-theme') || 'auto';
+};
+
+const buildLinkAnalyticsPayload = (link) => {
+  let href = link.getAttribute('href') || '';
+  let protocol = '';
+  let hostname = '';
+
+  try {
+    const url = new URL(link.href, window.location.href);
+    href = url.href;
+    protocol = url.protocol.replace(':', '');
+    hostname = url.hostname || '';
+  } catch (error) {
+    // relative or special URLs (e.g., tel:, #) may throw; ignore
+  }
+
+  const isExternal = hostname && hostname !== window.location.hostname;
+
+  return {
+    href,
+    protocol: protocol || (href.split(':')[0] || ''),
+    rel: link.getAttribute('rel') || '',
+    target: link.getAttribute('target') || '',
+    text: (link.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 140),
+    theme: getAnalyticsTheme(),
+    path: window.location.pathname,
+    context: resolveClosestContext(link),
+    external: isExternal,
+  };
+};
+
+const attachAnalyticsToLinks = () => {
+  const links = Array.from(document.querySelectorAll('a[href]'));
+  links.forEach((link, index) => {
+    if (link.dataset.analyticsBound === 'true') {
+      return;
+    }
+
+    const eventName = link.dataset.analyticsEvent || createFallbackLinkEventName(link, index);
+
+    link.addEventListener(
+      'click',
+      () => {
+        trackAnalyticsEvent(eventName, buildLinkAnalyticsPayload(link));
+      },
+      { passive: true }
+    );
+
+    link.dataset.analyticsBound = 'true';
   });
-}
+};
 
 const events = [
   {
@@ -561,3 +655,5 @@ if (navigator.share) {
 } else {
   nativeShareButton.style.display = 'none';
 }
+
+attachAnalyticsToLinks();
