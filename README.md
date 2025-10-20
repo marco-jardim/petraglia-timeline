@@ -6,6 +6,7 @@ Site informativo que reúne os esforços para localizar Antônio Petraglia, prof
 
 - **Galeria acessível** com miniaturas clicáveis, botões de navegação e metadados de cada foto real do acervo da família.
 - **Mapa Leaflet + linha do tempo** destacando os avistamentos confirmados entre Urca, Lapa, Glória e Cinelândia com marcadores numerados e rota conectando os pontos.
+- **Mapa de calor complementar** (ignora o primeiro registro) indicando onde os avistamentos mais recentes se concentram para orientar equipes de campo.
 - **Resumo do caso** sempre atualizado, cruzando a linha do tempo com as reportagens mais recentes para contextualizar voluntários e imprensa.
 - **Seção “Repercussão na imprensa”** com cards para O Globo, Veja Rio, O Dia e Record TV, cada um apontando para a matéria original.
 - **Compartilhamento facilitado** (Instagram, Facebook, X, TikTok, WhatsApp, Telegram e Web Share API) com feedback visual e fallback de cópia automática.

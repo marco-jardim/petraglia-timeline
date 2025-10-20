@@ -28,7 +28,7 @@
   <div class="update-banner" role="note" aria-live="polite">
     <div class="update-content">
       <span class="update-label">Atualizado em</span>
-      <time datetime="2025-10-19">19/10/2025</time>
+      <time datetime="2025-10-20">20/10/2025</time>
     </div>
     <div class="theme-selector" role="group" aria-label="Selecionar tema de cor">
       <span class="theme-selector-label" aria-hidden="true">Tema</span>
@@ -156,6 +156,18 @@
           <ol class="timeline" id="timeline"></ol>
         </div>
       </div>
+      <div class="heatmap-card" aria-labelledby="heatmap-heading">
+        <header class="heatmap-head">
+          <h3 id="heatmap-heading">Mapa de calor dos avistamentos recentes</h3>
+          <p>Os pontos abaixo unem os registros confirmados entre 15 e 19 de outubro (excluindo 14/10) para mostrar as áreas com maior recorrência recente.</p>
+        </header>
+        <div class="heatmap-container">
+          <div id="heatmapMap" role="img" aria-label="Mapa de calor destacando a concentração de avistamentos entre Lapa e Glória"></div>
+        </div>
+        <div class="heatmap-interpretation">
+          <p><strong>Interpretação:</strong> a maior densidade se concentra no eixo Lapa &rarr; Glória, especialmente em torno da Travessa do Mosqueira, Arcos da Lapa, Cinelândia e Avenida Franklin Roosevelt. Recomenda-se priorizar buscas presenciais nesse corredor e nos caminhos que ligam a Lapa à Glória, reforçando contato com comércios, farmácias e moradores dessas quadras.</p>
+        </div>
+      </div>
     </section>
 
     <section class="press-section" id="repercussao" aria-labelledby="press-heading">
@@ -215,6 +227,7 @@
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
   <script src="assets/app.js"></script>
   <script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
   <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif?collect-dnt=true" alt="" referrerpolicy="no-referrer-when-downgrade"/></noscript>

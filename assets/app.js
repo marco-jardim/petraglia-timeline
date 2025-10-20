@@ -409,6 +409,48 @@ const polyline = L.polyline(routePoints, {
 
 map.fitBounds(polyline.getBounds(), { padding: [20, 20] });
 
+const heatmapElement = document.getElementById('heatmapMap');
+if (heatmapElement && typeof L.heatLayer === 'function') {
+  const eventsForHeat = events.slice(1); // ignora 14/10
+  const heatPoints = eventsForHeat.map((event, index) => {
+    const weight = 0.5 + ((index + 1) / eventsForHeat.length) * 0.5;
+    return [...event.coords, Number(weight.toFixed(2))];
+  });
+
+  const heatMap = L.map('heatmapMap', {
+    scrollWheelZoom: true,
+    zoomControl: true,
+    attributionControl: true,
+  }).setView([-22.914, -43.178], 14);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+  }).addTo(heatMap);
+
+  if (heatPoints.length) {
+    L.heatLayer(heatPoints, {
+      radius: 32,
+      blur: 22,
+      minOpacity: 0.35,
+      maxZoom: 17,
+      gradient: {
+        0.2: '#38bdf8',
+        0.45: '#60a5fa',
+        0.6: '#fb923c',
+        0.8: '#f97316',
+        1: '#dc2626',
+      },
+    }).addTo(heatMap);
+  }
+
+  if (eventsForHeat.length > 1) {
+    const heatBounds = L.latLngBounds(eventsForHeat.map((event) => event.coords));
+    heatMap.fitBounds(heatBounds, { padding: [30, 30] });
+  } else if (eventsForHeat.length === 1) {
+    heatMap.setView(eventsForHeat[0].coords, 15);
+  }
+}
+
 const shareButtons = document.querySelectorAll('[data-share]');
 const shareFeedback = document.getElementById('shareFeedback');
 const nativeShareButton = document.getElementById('nativeShare');
