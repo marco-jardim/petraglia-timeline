@@ -235,18 +235,18 @@ const events = [
   },
   {
     date: '2025-10-18',
+    time: 'Incerto',
+    title: 'Arcos da Lapa',
+    description: 'Avistado nos Arcos da Lapa no dia 18/10; recebeu um casaco de outra pessoa em situação de rua e seguiu em direção à Glória, possivelmente para a Avenida Marechal Câmara.',
+    coords: [-22.9125944, -43.17985],
+  },
+  {
+    date: '2025-10-18',
     time: 'Tarde',
     title: 'Travessa do Mosqueira',
     description: 'Avistado por um frequentador de bar na Travessa do Mosqueira no dia 18/10, à tarde, vestindo casaco, calça e chinelo.',
     coords: [-22.9141271, -43.1791717],
-  },
-  {
-    date: '2025-10-18',
-    time: 'Incerto',
-    title: 'Arcos da Lapa',
-    description: 'Avistado nos Arcos da Lapa no dia 18/10; recebeu um casaco e seguiu em direção à Glória, possivelmente para a Avenida Marechal Câmara.',
-    coords: [-22.9125944, -43.17985],
-  },
+  },  
   {
     date: '2025-10-19',
     time: 'Manhã',
