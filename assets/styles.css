@@ -906,6 +906,131 @@ footer a {
   }
 }
 
+/* Legal page styling */
+body.legal-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(160deg, #f4f7fb 0%, #e9f2ff 45%, #fef7f0 100%);
+}
+
+.legal-header {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+}
+
+.legal-header h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.legal-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1.5rem 2.5rem;
+}
+
+.legal-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  max-width: 820px;
+  width: 100%;
+  padding: 2.5rem;
+  display: grid;
+  gap: 1.35rem;
+}
+
+.legal-card h2 {
+  margin: 0;
+  color: var(--primary);
+  font-size: 1.6rem;
+}
+
+.legal-card p,
+.legal-card li {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.legal-card strong {
+  color: var(--text);
+}
+
+.legal-card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.legal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.legal-meta a {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.legal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-start;
+}
+
+.legal-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid rgba(30, 144, 255, 0.25);
+  color: var(--primary);
+  background: rgba(30, 144, 255, 0.08);
+}
+
+.legal-actions a:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 20px rgba(30, 144, 255, 0.18);
+}
+
+.legal-footer {
+  padding: 1.75rem 1.5rem 2.5rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.legal-footer a {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .legal-card {
+    padding: 2rem;
+  }
+  .legal-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
