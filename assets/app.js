@@ -1,5 +1,26 @@
 'use strict';
 
+const trackAnalyticsEvent = (name, payload = {}) => {
+  if (!name || typeof window === 'undefined') {
+    return false;
+  }
+
+  try {
+    if (typeof window.sa_event === 'function') {
+      window.sa_event(name, payload);
+      return true;
+    }
+
+    const queue = window.sa_event_queue || [];
+    queue.push([name, payload]);
+    window.sa_event_queue = queue;
+  } catch (error) {
+    // ignore analytics errors to avoid disrupting the UX
+  }
+
+  return false;
+};
+
 const photoProfiles = [
   {
     id: 'recent-20251017',
@@ -246,6 +267,18 @@ if (themeButtons.length) {
   });
 } else {
   updateAutoButtonLabel();
+}
+
+const flyerDownloadButton = document.querySelector('.download-button[href$=".pdf"]');
+
+if (flyerDownloadButton) {
+  flyerDownloadButton.addEventListener('click', () => {
+    trackAnalyticsEvent('cartaz_pdf_download', {
+      href: flyerDownloadButton.getAttribute('href'),
+      theme: activeTheme,
+      path: window.location.pathname,
+    });
+  });
 }
 
 const events = [
