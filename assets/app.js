@@ -483,21 +483,7 @@ const events = [
   },
   {
     date: '2025-10-19',
-    time: 'Manhã',
-    title: 'Drogarias Riofarma',
-    description: 'Avistado por uma pessoa entre 9 e 10 h da manhã do dia 19/10 na Farmácia Riofarma.',
-    coords: [-22.9193597, -43.179784],
-  },
-  {
-    date: '2025-10-20',
-    time: 'Tarde',
-    title: 'Rua Santana, 73',
-    description: 'Visto na Rua Santana, 73, no dia 20/10; relato feito por um morador de rua que disse ter visto Antônio caminhando em direção à Lapa.',
-    coords: [-22.9070785,-43.19413],
-  },
-  {
-    date: '2025-10-19',
-    time: '19:30',
+    time: 'Tarde/Noite',
     title: 'Rua Barão de São Félix, 132',
     description: 'Visto no Ferro Velho do Armandinho, na noite do dia 19/10. Supostamente, teria pedido para dormir no local.',
     coords: [-22.9012171,-43.1910096],
@@ -508,6 +494,13 @@ const events = [
     title: 'Rua Uruguaiana, 174',
     description: 'Visto na Rua Uruguaiana, 174, recebendo cobertores.',
     coords: [-22.9035074, -43.1794033],
+  },  
+  {
+    date: '2025-10-20',
+    time: 'Incerto',
+    title: 'Rua Santana, 73',
+    description: 'Visto na Rua Santana, 73, no dia 20/10; relato feito por um morador de rua que disse ter visto Antônio caminhando em direção à Lapa.',
+    coords: [-22.9070785,-43.19413],
   },
 ];
 
