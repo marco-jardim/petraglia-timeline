@@ -483,6 +483,13 @@ const events = [
   },
   {
     date: '2025-10-19',
+    time: 'Manhã',
+    title: 'SEFRAS - Franciscanos',
+    description: 'Visto almoçando no SEFRAS, Rua Visconde da Gávea, 125, na manhã do dia 19/10.',
+    coords: [-22.8997841,-43.1905092],
+  },
+  {
+    date: '2025-10-19',
     time: 'Tarde/Noite',
     title: 'Rua Barão de São Félix, 132',
     description: 'Visto no Ferro Velho do Armandinho, na noite do dia 19/10. Supostamente, teria pedido para dormir no local.',
