@@ -729,3 +729,83 @@ if (navigator.share) {
 }
 
 attachAnalyticsToLinks();
+
+// Coordinate Modal Functionality
+const coordModal = document.getElementById('coordModal');
+const coordModalMap = document.getElementById('coordModalMap');
+const coordModalLink = document.getElementById('coordModalLink');
+const coordModalClose = document.querySelector('.coord-modal-close');
+const coordModalOverlay = document.querySelector('.coord-modal-overlay');
+
+let modalMapInstance = null;
+let modalMarker = null;
+
+const openCoordModal = (lat, lon) => {
+  coordModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+
+  // Initialize map if not already created
+  if (!modalMapInstance) {
+    modalMapInstance = L.map('coordModalMap', {
+      scrollWheelZoom: true,
+      zoomControl: true,
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    }).addTo(modalMapInstance);
+  }
+
+  // Set view and marker
+  modalMapInstance.setView([lat, lon], 16);
+  
+  if (modalMarker) {
+    modalMarker.setLatLng([lat, lon]);
+  } else {
+    modalMarker = L.marker([lat, lon]).addTo(modalMapInstance);
+  }
+
+  modalMarker.bindPopup(`<strong>Coordenadas:</strong><br>${lat}, ${lon}`).openPopup();
+
+  // Update OpenStreetMap link
+  coordModalLink.href = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}&zoom=16`;
+
+  // Force map resize after modal is visible
+  setTimeout(() => {
+    if (modalMapInstance) {
+      modalMapInstance.invalidateSize();
+    }
+  }, 100);
+};
+
+const closeCoordModal = () => {
+  coordModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+};
+
+// Event listeners for coordinate links
+document.addEventListener('click', (event) => {
+  const coordLink = event.target.closest('.coord-link');
+  if (coordLink) {
+    event.preventDefault();
+    const lat = parseFloat(coordLink.dataset.lat);
+    const lon = parseFloat(coordLink.dataset.lon);
+    openCoordModal(lat, lon);
+  }
+});
+
+// Close modal events
+if (coordModalClose) {
+  coordModalClose.addEventListener('click', closeCoordModal);
+}
+
+if (coordModalOverlay) {
+  coordModalOverlay.addEventListener('click', closeCoordModal);
+}
+
+// Close on ESC key
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && coordModal.getAttribute('aria-hidden') === 'false') {
+    closeCoordModal();
+  }
+});
