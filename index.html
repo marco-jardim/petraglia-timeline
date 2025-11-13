@@ -147,14 +147,16 @@
     <section class="urca-timeline" id="linha-do-tempo-urca" aria-labelledby="urca-timeline-heading">
       <div class="urca-timeline-head">
         <h2 id="urca-timeline-heading">Linha do tempo dos primeiros dias do desaparecimento</h2>
-        <p>Os registros a seguir recompõem o dia 12/10, quando Antônio foi visto pela última vez na Urca, e o que aconteceu até a reabertura da trilha na manhã de 16/10. Todos os pontos com coordenadas confirmadas aparecem no mapa abaixo para apoiar novas buscas presenciais.</p>
+        <p>Os registros a seguir recompõem o dia 12/10, quando Antônio foi visto pela última vez na Urca, e o que aconteceu até a reabertura da trilha na manhã de 16/10. Clique em cada dia para ver os detalhes completos.</p>
       </div>
-      <div class="urca-timeline-grid">
-        <article class="urca-day-card" aria-labelledby="urca-dia-12">
-          <header class="urca-day-header">
-            <p class="urca-day-label">Dia 12/10</p>
+      <div class="urca-timeline-accordion">
+        <details class="urca-day-card" aria-labelledby="urca-dia-12">
+          <summary class="urca-day-summary">
+            <span class="urca-day-label">Dia 12/10</span>
             <h3 id="urca-dia-12">Percurso entre a Praia Vermelha e a Pista Cláudio Coutinho</h3>
-          </header>
+            <span class="urca-expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="urca-day-content">
           <ol class="urca-event-list">
             <li>
               <div class="urca-event-time">16h30</div>
@@ -225,19 +227,25 @@
               </div>
             </li>
           </ol>
-        </article>
-        <article class="urca-day-card" aria-labelledby="urca-dia-1415">
-          <header class="urca-day-header">
-            <p class="urca-day-label">Dias 14 e 15/10</p>
+          </div>
+        </details>
+        <details class="urca-day-card" aria-labelledby="urca-dia-1415">
+          <summary class="urca-day-summary">
+            <span class="urca-day-label">Dias 14 e 15/10</span>
             <h3 id="urca-dia-1415">Trilha totalmente fechada</h3>
-          </header>
+            <span class="urca-expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="urca-day-content">
           <p>Após buscas intensas, a Pista Cláudio Coutinho e os acessos ao Morro da Urca foram interditados por segurança. Equipes oficiais concentraram-se na faixa de areia, nas pedras e nas áreas internas do Exército enquanto a família continuava divulgando o caso.</p>
-        </article>
-        <article class="urca-day-card" aria-labelledby="urca-dia-16">
-          <header class="urca-day-header">
-            <p class="urca-day-label">Dia 16/10</p>
+          </div>
+        </details>
+        <details class="urca-day-card" aria-labelledby="urca-dia-16">
+          <summary class="urca-day-summary">
+            <span class="urca-day-label">Dia 16/10</span>
             <h3 id="urca-dia-16">Retomada das buscas na Urca</h3>
-          </header>
+            <span class="urca-expand-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="urca-day-content">
           <ol class="urca-event-list">
             <li>
               <div class="urca-event-time">06h00</div>
@@ -254,7 +262,8 @@
               </div>
             </li>
           </ol>
-        </article>
+          </div>
+        </details>
       </div>
       <p class="urca-data-source">Coordenadas obtidas em dados públicos do <abbr title="OpenStreetMap">OSM</abbr> e registros comerciais (Bar Canal 6).</p>
     </section>

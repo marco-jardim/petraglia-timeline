@@ -719,24 +719,64 @@ section {
   color: var(--muted);
 }
 
-.urca-timeline-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.urca-day-card {
-  background: var(--surface-soft);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  border: 1px solid var(--border-soft);
+.urca-timeline-accordion {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.urca-day-header {
-  margin-bottom: 0.25rem;
+.urca-day-card {
+  background: var(--surface-soft);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.urca-day-card[open] {
+  background: var(--surface);
+}
+
+.urca-day-summary {
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.urca-day-summary::-webkit-details-marker {
+  display: none;
+}
+
+.urca-day-summary:hover {
+  background: var(--surface);
+}
+
+.urca-day-content {
+  padding: 0 1.5rem 1.5rem;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.urca-day-summary h3 {
+  margin: 0;
+  font-size: 1.15rem;
 }
 
 .urca-day-label {
@@ -744,13 +784,25 @@ section {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--accent);
-  margin: 0 0 0.35rem;
+  margin: 0;
   font-weight: 700;
+  white-space: nowrap;
 }
 
-.urca-day-header h3 {
-  margin: 0;
-  font-size: 1.15rem;
+.urca-expand-icon {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--accent);
+  transition: transform 0.3s ease;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.urca-day-card[open] .urca-expand-icon {
+  transform: rotate(45deg);
 }
 
 .urca-event-list {
@@ -806,6 +858,21 @@ section {
 @media (max-width: 768px) {
   .urca-timeline {
     padding: 1.5rem;
+  }
+
+  .urca-day-summary {
+    padding: 1rem;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+  }
+
+  .urca-day-label {
+    grid-column: 1 / -1;
+    margin-bottom: 0.25rem;
+  }
+
+  .urca-day-content {
+    padding: 0 1rem 1rem;
   }
 
   .urca-event-list li {
