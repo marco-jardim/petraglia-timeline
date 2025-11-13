@@ -377,6 +377,48 @@ const attachAnalyticsToLinks = () => {
 
 const events = [
   {
+    date: '2025-10-12',
+    time: '16:59',
+    title: 'Praça General Tibúrcio (Praia Vermelha)',
+    description: 'Flagrado correndo sem a blusa, com a peça nas mãos, momentos antes de acessar a Pista Cláudio Coutinho.',
+    coords: [-22.955104, -43.1657748],
+  },
+  {
+    date: '2025-10-12',
+    time: '17:00',
+    title: 'Portão da Pista Cláudio Coutinho',
+    description: 'Entrada registrada pelas câmeras; cumprimenta um montanhista com mochila de primeiros socorros e segue sem água.',
+    coords: [-22.9542304, -43.1648835],
+  },
+  {
+    date: '2025-10-12',
+    time: '17:23',
+    title: 'Trecho final / caixa de inspeção',
+    description: 'Visto no limite leste da pista, próximo à caixa de esgoto e à curva que leva ao costão do Pão de Açúcar.',
+    coords: [-22.9511755, -43.152593],
+  },
+  {
+    date: '2025-10-12',
+    time: '17:30',
+    title: 'Deck dos Navegadores',
+    description: 'Tag de monitoramento parou neste deck; cães farejadores permaneceram horas farejando o ponto.',
+    coords: [-22.9512784, -43.165139],
+  },
+  {
+    date: '2025-10-12',
+    time: '17:40',
+    title: 'Pista Cláudio Coutinho (5 minutos do portão)',
+    description: 'Relato confiável indica que Antônio retornou sentido entrada e passou por este trecho ainda em alta velocidade.',
+    coords: [-22.9537945, -43.1634215],
+  },
+  {
+    date: '2025-10-12',
+    time: '18:15',
+    title: 'Banco de madeira ("bangalô")',
+    description: 'Casal o encontrou sentado e rasgando papéis da carteira; ao retornar dez minutos depois, ele já não estava ali.',
+    coords: [-22.9516106, -43.1639174],
+  },
+  {
     date: '2025-10-14',
     time: 'Incerta',
     title: 'Praia da Urca',
@@ -406,10 +448,10 @@ const events = [
   },
   {
     date: '2025-10-16',
-    time: '16:00',
-    title: 'Travessa do Mosqueira',
-    description: 'Missionárias da Caridade informaram que Antônio chegou às 16h para a refeição solidária no dia 16/10, aceitando refeição.',
-    coords: [-22.9141483, -43.1793843],
+    time: '08:56',
+    title: 'Avenida Portugal — Bar Canal 6',
+    description: 'Tag é ativada na maré baixa em frente ao Bar Canal 6 (Av. Portugal, 986); policiais usam o celular de Mariane para tentar contato.',
+    coords: [-22.9485589, -43.1637633],
   },
   {
     date: '2025-10-17',
@@ -566,7 +608,9 @@ map.fitBounds(polyline.getBounds(), { padding: [20, 20] });
 
 const heatmapElement = document.getElementById('heatmapMap');
 if (heatmapElement && typeof L.heatLayer === 'function') {
-  const eventsForHeat = events.slice(1); // ignora 14/10
+  const eventsForHeat = events.filter(
+    (event) => event.date >= '2025-10-15' && event.date <= '2025-10-19'
+  ); // concentra-se nos registros confirmados entre 15 e 19/10
   const heatPoints = eventsForHeat.map((event, index) => {
     const weight = 0.5 + ((index + 1) / eventsForHeat.length) * 0.5;
     return [...event.coords, Number(weight.toFixed(2))];
